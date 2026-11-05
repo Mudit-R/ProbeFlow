@@ -1,0 +1,357 @@
+{
+  "cases": 20,
+  "passed": 20,
+  "results": [
+    {
+      "case_id": "health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 17.107,
+      "failures": [],
+      "response": {
+        "status": "ok",
+        "mode": "synthetic-extractive-reference"
+      }
+    },
+    {
+      "case_id": "missing_auth",
+      "passed": true,
+      "status": 401,
+      "latency_ms": 2.326,
+      "failures": [],
+      "response": {
+        "detail": "Invalid API key"
+      }
+    },
+    {
+      "case_id": "short_question",
+      "passed": true,
+      "status": 422,
+      "latency_ms": 1.196,
+      "failures": [],
+      "response": {
+        "detail": [
+          {
+            "type": "string_too_short",
+            "loc": [
+              "body",
+              "question"
+            ],
+            "msg": "String should have at least 3 characters",
+            "input": "x",
+            "ctx": {
+              "min_length": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "invalid_top_k",
+      "passed": true,
+      "status": 422,
+      "latency_ms": 1.096,
+      "failures": [],
+      "response": {
+        "detail": [
+          {
+            "type": "greater_than_equal",
+            "loc": [
+              "body",
+              "top_k"
+            ],
+            "msg": "Input should be greater than or equal to 1",
+            "input": 0,
+            "ctx": {
+              "ge": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "too_large_top_k",
+      "passed": true,
+      "status": 422,
+      "latency_ms": 0.974,
+      "failures": [],
+      "response": {
+        "detail": [
+          {
+            "type": "less_than_equal",
+            "loc": [
+              "body",
+              "top_k"
+            ],
+            "msg": "Input should be less than or equal to 5",
+            "input": 6,
+            "ctx": {
+              "le": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "missing_question",
+      "passed": true,
+      "status": 422,
+      "latency_ms": 0.667,
+      "failures": [],
+      "response": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "question"
+            ],
+            "msg": "Field required",
+            "input": {}
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "retention",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 1.9,
+      "failures": [],
+      "response": {
+        "answer": "Clinical operations audit records are retained for seven years. Archived records remain read-only.",
+        "citations": [
+          {
+            "document_id": "retention",
+            "title": "Retention policy",
+            "excerpt": "Clinical operations audit records are retained for seven years. Archived records remain read-only."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "case_id": "access",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 1.815,
+      "failures": [],
+      "response": {
+        "answer": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision.",
+        "citations": [
+          {
+            "document_id": "access",
+            "title": "Access review",
+            "excerpt": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "case_id": "invoice",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 3.585,
+      "failures": [],
+      "response": {
+        "answer": "Supplier invoices over 50000 rupees require finance approval. Invoice payment terms are thirty days.",
+        "citations": [
+          {
+            "document_id": "invoice",
+            "title": "Invoice approval",
+            "excerpt": "Supplier invoices over 50000 rupees require finance approval. Invoice payment terms are thirty days."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "case_id": "incident",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 1.662,
+      "failures": [],
+      "response": {
+        "answer": "Critical incidents must be escalated within fifteen minutes. The incident commander maintains the response timeline.",
+        "citations": [
+          {
+            "document_id": "incident",
+            "title": "Incident response",
+            "excerpt": "Critical incidents must be escalated within fifteen minutes. The incident commander maintains the response timeline."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "case_id": "backup",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 2.528,
+      "failures": [],
+      "response": {
+        "answer": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented.",
+        "citations": [
+          {
+            "document_id": "backup",
+            "title": "Backup recovery",
+            "excerpt": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "case_id": "onboarding",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 1.692,
+      "failures": [],
+      "response": {
+        "answer": "Vendor onboarding requires a risk assessment and a signed data processing agreement before activation.",
+        "citations": [
+          {
+            "document_id": "onboarding",
+            "title": "Vendor onboarding",
+            "excerpt": "Vendor onboarding requires a risk assessment and a signed data processing agreement before activation."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "case_id": "unanswerable",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 1.791,
+      "failures": [],
+      "response": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    },
+    {
+      "case_id": "stop_words",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 0.911,
+      "failures": [],
+      "response": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    },
+    {
+      "case_id": "sql_vendor_total",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 1.744,
+      "failures": [],
+      "response": {
+        "vendors": [
+          {
+            "id": "v1",
+            "name": "Synthetic North",
+            "invoice_count": 2,
+            "total_rupees": 35000,
+            "outstanding_rupees": 25000
+          },
+          {
+            "id": "v2",
+            "name": "Synthetic South",
+            "invoice_count": 1,
+            "total_rupees": 8000,
+            "outstanding_rupees": 8000
+          },
+          {
+            "id": "v3",
+            "name": "Synthetic Empty",
+            "invoice_count": 0,
+            "total_rupees": 0,
+            "outstanding_rupees": 0
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "sql_requires_auth",
+      "passed": true,
+      "status": 401,
+      "latency_ms": 0.622,
+      "failures": [],
+      "response": {
+        "detail": "Invalid API key"
+      }
+    },
+    {
+      "case_id": "json_ingestion",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 17.553,
+      "failures": [],
+      "response": {
+        "id": "contract_json",
+        "stored": true
+      }
+    },
+    {
+      "case_id": "xml_ingestion",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 9.316,
+      "failures": [],
+      "response": {
+        "id": "contract_xml",
+        "stored": true
+      }
+    },
+    {
+      "case_id": "malformed_xml",
+      "passed": true,
+      "status": 422,
+      "latency_ms": 1.061,
+      "failures": [],
+      "response": {
+        "detail": "Invalid or unsafe XML"
+      }
+    },
+    {
+      "case_id": "empty_document",
+      "passed": true,
+      "status": 422,
+      "latency_ms": 0.932,
+      "failures": [],
+      "response": {
+        "detail": [
+          {
+            "type": "string_too_short",
+            "loc": [
+              "body",
+              "title"
+            ],
+            "msg": "String should have at least 1 character",
+            "input": "",
+            "ctx": {
+              "min_length": 1
+            }
+          },
+          {
+            "type": "string_too_short",
+            "loc": [
+              "body",
+              "text"
+            ],
+            "msg": "String should have at least 1 character",
+            "input": "",
+            "ctx": {
+              "min_length": 1
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

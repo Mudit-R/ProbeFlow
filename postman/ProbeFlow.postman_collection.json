@@ -1,0 +1,722 @@
+{
+  "info": {
+    "name": "ProbeFlow HTTP Contracts",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Synthetic reference contracts. Set base_url and api_key; writes affect only explicit fixture documents."
+  },
+  "item": [
+    {
+      "name": "health",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/healthz",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"status\", function () { const observed = \"status\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"ok\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "missing_auth",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"backup recovery\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", function () { pm.response.to.have.status(401); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "short_question",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"x\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "invalid_top_k",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"backup recovery\", \"top_k\": 0}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "too_large_top_k",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"backup recovery\", \"top_k\": 6}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "missing_question",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "retention",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"retention policy\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"citations.0.document_id\", function () { const observed = \"citations.0.document_id\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"retention\"); });",
+              "pm.test(\"abstained\", function () { const observed = \"abstained\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(false); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "access",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"access review\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"citations.0.document_id\", function () { const observed = \"citations.0.document_id\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"access\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "invoice",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"invoice approval\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"citations.0.document_id\", function () { const observed = \"citations.0.document_id\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"invoice\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "incident",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"critical incident escalation\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"citations.0.document_id\", function () { const observed = \"citations.0.document_id\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"incident\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "backup",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"database backup recovery\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"citations.0.document_id\", function () { const observed = \"citations.0.document_id\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"backup\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "onboarding",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"vendor onboarding\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"citations.0.document_id\", function () { const observed = \"citations.0.document_id\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(\"onboarding\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "unanswerable",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"Who discovered Neptune?\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"abstained\", function () { const observed = \"abstained\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(true); });",
+              "pm.test(\"citations\", function () { const observed = \"citations\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal([]); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "stop_words",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/v1/answer",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"question\": \"the and for\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"abstained\", function () { const observed = \"abstained\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "sql_vendor_total",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/v1/vendors",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"vendors.0.total_rupees\", function () { const observed = \"vendors.0.total_rupees\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(35000); });",
+              "pm.test(\"vendors.0.outstanding_rupees\", function () { const observed = \"vendors.0.outstanding_rupees\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(25000); });",
+              "pm.test(\"vendors.2.invoice_count\", function () { const observed = \"vendors.2.invoice_count\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(0); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "sql_requires_auth",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/v1/vendors",
+        "header": []
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", function () { pm.response.to.have.status(401); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "json_ingestion",
+      "request": {
+        "method": "PUT",
+        "url": "{{base_url}}/v1/documents/contract_json",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Contract JSON\", \"text\": \"Synthetic zebra contract fixture.\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"stored\", function () { const observed = \"stored\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "xml_ingestion",
+      "request": {
+        "method": "PUT",
+        "url": "{{base_url}}/v1/documents-xml/contract_xml",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<document><title>Contract XML</title><text>Synthetic amber contract fixture.</text></document>",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"stored\", function () { const observed = \"stored\".split(\".\").reduce((v,k) => v[k], pm.response.json()); pm.expect(observed).to.deep.equal(true); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "malformed_xml",
+      "request": {
+        "method": "PUT",
+        "url": "{{base_url}}/v1/documents-xml/broken",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<document><title>broken",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "empty_document",
+      "request": {
+        "method": "PUT",
+        "url": "{{base_url}}/v1/documents/empty",
+        "header": [
+          {
+            "key": "X-API-Key",
+            "value": "{{api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"\", \"text\": \"\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 422\", function () { pm.response.to.have.status(422); });"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8765"
+    },
+    {
+      "key": "api_key",
+      "value": ""
+    }
+  ]
+}

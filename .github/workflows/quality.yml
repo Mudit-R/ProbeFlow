@@ -1,0 +1,24 @@
+name: API and retrieval quality
+on: [push, pull_request]
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -e '.[dev]'
+      - run: mkdir -p artifacts
+      - run: python -m pytest -q --junitxml=artifacts/pytest.xml
+      - name: Validate running service and retain evidence
+        run: python scripts/validate.py --schemathesis --newman
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-evidence
+          path: artifacts/
+

@@ -1,0 +1,66 @@
+{
+  "stats": {
+    "iterations": {
+      "total": 1,
+      "pending": 0,
+      "failed": 0
+    },
+    "items": {
+      "total": 20,
+      "pending": 0,
+      "failed": 0
+    },
+    "scripts": {
+      "total": 20,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequests": {
+      "total": 20,
+      "pending": 0,
+      "failed": 0
+    },
+    "requests": {
+      "total": 20,
+      "pending": 0,
+      "failed": 0
+    },
+    "tests": {
+      "total": 20,
+      "pending": 0,
+      "failed": 0
+    },
+    "assertions": {
+      "total": 36,
+      "pending": 0,
+      "failed": 0
+    },
+    "testScripts": {
+      "total": 20,
+      "pending": 0,
+      "failed": 0
+    },
+    "prerequestScripts": {
+      "total": 0,
+      "pending": 0,
+      "failed": 0
+    }
+  },
+  "timings": {
+    "responseAverage": 5.6,
+    "responseMin": 2,
+    "responseMax": 22,
+    "responseSd": 5.535341001239219,
+    "dnsAverage": 0,
+    "dnsMin": 0,
+    "dnsMax": 0,
+    "dnsSd": 0,
+    "firstByteAverage": 0,
+    "firstByteMin": 0,
+    "firstByteMax": 0,
+    "firstByteSd": 0,
+    "started": 1793538251232,
+    "completed": 1793538253110
+  },
+  "failures": []
+}

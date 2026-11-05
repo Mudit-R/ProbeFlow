@@ -1,0 +1,282 @@
+[
+  {
+    "id": "q01",
+    "question": "How long are audit records retained?",
+    "document_id": "retention",
+    "expected_phrase": "seven years",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q02",
+    "question": "What is the retention policy for clinical operations?",
+    "document_id": "retention",
+    "expected_phrase": "seven years",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q03",
+    "question": "Are archived records writable?",
+    "document_id": "retention",
+    "expected_phrase": "read-only",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q04",
+    "question": "How often do access reviews occur?",
+    "document_id": "access",
+    "expected_phrase": "ninety days",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q05",
+    "question": "Who approves access?",
+    "document_id": "access",
+    "expected_phrase": "team lead",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q06",
+    "question": "Which invoices require finance approval?",
+    "document_id": "invoice",
+    "expected_phrase": "50000",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q07",
+    "question": "What are invoice payment terms?",
+    "document_id": "invoice",
+    "expected_phrase": "thirty days",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q08",
+    "question": "How soon are critical incidents escalated?",
+    "document_id": "incident",
+    "expected_phrase": "fifteen minutes",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q09",
+    "question": "Who maintains the incident response timeline?",
+    "document_id": "incident",
+    "expected_phrase": "incident commander",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "How often are database backups run?",
+    "document_id": "backup",
+    "expected_phrase": "daily",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q11",
+    "question": "How often is a recovery drill performed?",
+    "document_id": "backup",
+    "expected_phrase": "monthly",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q12",
+    "question": "Where are restore results documented?",
+    "document_id": "backup",
+    "expected_phrase": "documented",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q13",
+    "question": "What vendor onboarding requirements apply?",
+    "document_id": "onboarding",
+    "expected_phrase": "risk assessment",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q14",
+    "question": "What agreement is signed before vendor activation?",
+    "document_id": "onboarding",
+    "expected_phrase": "data processing agreement",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q15",
+    "question": "Which team records access decisions?",
+    "document_id": "access",
+    "expected_phrase": "security team",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q16",
+    "question": "Who discovered Neptune?",
+    "document_id": null,
+    "expected_phrase": "",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q17",
+    "question": "What is the tallest volcano?",
+    "document_id": null,
+    "expected_phrase": "",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q18",
+    "question": "Explain photosynthesis chlorophyll",
+    "document_id": null,
+    "expected_phrase": "",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q19",
+    "question": "Calculate orbital eccentricity",
+    "document_id": null,
+    "expected_phrase": "",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  },
+  {
+    "id": "q20",
+    "question": "What causes superconductivity?",
+    "document_id": null,
+    "expected_phrase": "",
+    "allowed_document_ids": [
+      "retention",
+      "access",
+      "invoice",
+      "incident",
+      "backup",
+      "onboarding"
+    ]
+  }
+]

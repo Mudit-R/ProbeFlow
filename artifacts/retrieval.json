@@ -1,0 +1,396 @@
+{
+  "scope": "synthetic fixture set; no claim of general model quality",
+  "examples": 20,
+  "answerable": 15,
+  "recall_at_3": 1.0,
+  "mrr_at_3": 1.0,
+  "abstention_accuracy": 1.0,
+  "citation_validity": 1.0,
+  "predictions": [
+    {
+      "id": "q01",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Clinical operations audit records are retained for seven years. Archived records remain read-only.",
+        "citations": [
+          {
+            "document_id": "retention",
+            "title": "Retention policy",
+            "excerpt": "Clinical operations audit records are retained for seven years. Archived records remain read-only."
+          },
+          {
+            "document_id": "access",
+            "title": "Access review",
+            "excerpt": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q02",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Clinical operations audit records are retained for seven years. Archived records remain read-only.",
+        "citations": [
+          {
+            "document_id": "retention",
+            "title": "Retention policy",
+            "excerpt": "Clinical operations audit records are retained for seven years. Archived records remain read-only."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q03",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Clinical operations audit records are retained for seven years. Archived records remain read-only.",
+        "citations": [
+          {
+            "document_id": "retention",
+            "title": "Retention policy",
+            "excerpt": "Clinical operations audit records are retained for seven years. Archived records remain read-only."
+          },
+          {
+            "document_id": "access",
+            "title": "Access review",
+            "excerpt": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q04",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision.",
+        "citations": [
+          {
+            "document_id": "access",
+            "title": "Access review",
+            "excerpt": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q05",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision.",
+        "citations": [
+          {
+            "document_id": "access",
+            "title": "Access review",
+            "excerpt": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q06",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Supplier invoices over 50000 rupees require finance approval. Invoice payment terms are thirty days.",
+        "citations": [
+          {
+            "document_id": "invoice",
+            "title": "Invoice approval",
+            "excerpt": "Supplier invoices over 50000 rupees require finance approval. Invoice payment terms are thirty days."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q07",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Supplier invoices over 50000 rupees require finance approval. Invoice payment terms are thirty days.",
+        "citations": [
+          {
+            "document_id": "invoice",
+            "title": "Invoice approval",
+            "excerpt": "Supplier invoices over 50000 rupees require finance approval. Invoice payment terms are thirty days."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q08",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Critical incidents must be escalated within fifteen minutes. The incident commander maintains the response timeline.",
+        "citations": [
+          {
+            "document_id": "incident",
+            "title": "Incident response",
+            "excerpt": "Critical incidents must be escalated within fifteen minutes. The incident commander maintains the response timeline."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q09",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Critical incidents must be escalated within fifteen minutes. The incident commander maintains the response timeline.",
+        "citations": [
+          {
+            "document_id": "incident",
+            "title": "Incident response",
+            "excerpt": "Critical incidents must be escalated within fifteen minutes. The incident commander maintains the response timeline."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q10",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented.",
+        "citations": [
+          {
+            "document_id": "backup",
+            "title": "Backup recovery",
+            "excerpt": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q11",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented.",
+        "citations": [
+          {
+            "document_id": "backup",
+            "title": "Backup recovery",
+            "excerpt": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q12",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented.",
+        "citations": [
+          {
+            "document_id": "backup",
+            "title": "Backup recovery",
+            "excerpt": "Database backups run daily. A recovery drill is performed monthly and the restore result is documented."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q13",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Vendor onboarding requires a risk assessment and a signed data processing agreement before activation.",
+        "citations": [
+          {
+            "document_id": "onboarding",
+            "title": "Vendor onboarding",
+            "excerpt": "Vendor onboarding requires a risk assessment and a signed data processing agreement before activation."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q14",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Vendor onboarding requires a risk assessment and a signed data processing agreement before activation.",
+        "citations": [
+          {
+            "document_id": "onboarding",
+            "title": "Vendor onboarding",
+            "excerpt": "Vendor onboarding requires a risk assessment and a signed data processing agreement before activation."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q15",
+      "answerable": true,
+      "retrieval_hit": true,
+      "reciprocal_rank": 1.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": true,
+      "prediction": {
+        "answer": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision.",
+        "citations": [
+          {
+            "document_id": "access",
+            "title": "Access review",
+            "excerpt": "Access reviews occur every ninety days. A team lead approves access and the security team records the decision."
+          },
+          {
+            "document_id": "retention",
+            "title": "Retention policy",
+            "excerpt": "Clinical operations audit records are retained for seven years. Archived records remain read-only."
+          }
+        ],
+        "abstained": false
+      }
+    },
+    {
+      "id": "q16",
+      "answerable": false,
+      "retrieval_hit": null,
+      "reciprocal_rank": 0.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": null,
+      "prediction": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    },
+    {
+      "id": "q17",
+      "answerable": false,
+      "retrieval_hit": null,
+      "reciprocal_rank": 0.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": null,
+      "prediction": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    },
+    {
+      "id": "q18",
+      "answerable": false,
+      "retrieval_hit": null,
+      "reciprocal_rank": 0.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": null,
+      "prediction": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    },
+    {
+      "id": "q19",
+      "answerable": false,
+      "retrieval_hit": null,
+      "reciprocal_rank": 0.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": null,
+      "prediction": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    },
+    {
+      "id": "q20",
+      "answerable": false,
+      "retrieval_hit": null,
+      "reciprocal_rank": 0.0,
+      "abstention_correct": true,
+      "citations_valid": true,
+      "expected_phrase_present": null,
+      "prediction": {
+        "answer": "Insufficient evidence in the indexed documents.",
+        "citations": [],
+        "abstained": true
+      }
+    }
+  ]
+}

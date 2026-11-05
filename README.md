@@ -1,0 +1,133 @@
+# ProbeFlow
+
+Python API quality workbench for OpenAPI driven fuzzing, contract tests,
+retrieval evaluation, SQL reconciliation and bounded LLM assisted investigation.
+Built as a local portfolio project on November 1, 2026. All reference data is
+synthetic.
+
+## What works
+
+- Reusable HTTP test cases with status, nested JSON value and strict value-type assertions. It records both defects and transport errors.
+- FastAPI reference service with a typed answer contract, JSON/XML document ingestion, SQLite FTS5/BM25 retrieval and relational invoice/vendor rollups.
+- Tests reconcile API totals against the actual SQL database. Negative checks cover authentication, input boundaries, malformed XML, external XML entities and document index consistency.
+- A LangGraph state graph calls an Ollama structured-output adapter, validates each decision with Pydantic, executes approved read-only HTTP checks and returns observations to the model. It rejects unknown tools and bounds execution to a configurable step budget.
+- Twenty Postman requests and a matching JSON contract suite.
+- OpenAPI 3.x/JSON/YAML imports use Schemathesis and Hypothesis to generate inputs from API contracts. Read-only GET, HEAD, OPTIONS and TRACE operations are included by default. A POST is tested only when its operation carries `x-probeflow-safe: true`; PUT, PATCH and DELETE stay out of the run. Generated checks have fixed time, request and rate limits, one worker, and redirects disabled.
+- Each OpenAPI run exports JUnit XML, machine readable JSON and an offline HTML report. API tokens flow from named environment variables through a generated Schemathesis config; the config stores placeholders, never token values. Tokens stay out of command-line arguments and saved schemas. Reports remain local and may contain response data from the API under test, so review them before sharing.
+- Evaluation of twenty explicit synthetic queries: recall@3, MRR@3, citation-id validity and answerable/unanswerable abstention. Every prediction is retained.
+- Concurrent HTTP load driver with raw samples, status counts, p50/p95/p99 latency, environment metadata and an explicit workload boundary.
+- Pytest JUnit output and a GitHub Actions workflow that retains quality artifacts. The workflow is provided in source; a hosted Actions run has not been performed.
+
+## Start locally (PowerShell)
+
+```powershell
+python -m venv .venv
+& .\.venv\Scripts\python.exe -m pip install -e '.[dev]'
+$env:PROBEFLOW_API_KEY = 'choose-a-local-test-key'
+& .\.venv\Scripts\python.exe -m uvicorn probeflow.reference_api:create_app --factory --port 8765
+```
+
+In another terminal with the same API key environment variable:
+
+```powershell
+& .\.venv\Scripts\python.exe -m pytest -q --junitxml=artifacts/pytest.xml
+& .\.venv\Scripts\python.exe -m probeflow.cli suite --out artifacts/contracts.json
+& .\.venv\Scripts\python.exe -m probeflow.cli evaluate --out artifacts/retrieval.json
+& .\.venv\Scripts\python.exe -m probeflow.cli benchmark --requests 300 --concurrency 10 --out artifacts/benchmark.json
+& .\.venv\Scripts\python.exe -m probeflow.cli openapi --schema openapi/probeflow-readonly.json --target-url http://127.0.0.1:8765 --header-env X-API-Key=PROBEFLOW_API_KEY --max-examples 20 --max-time 30 --out artifacts/schemathesis-result.json
+```
+
+Or use one isolated validation command; it creates its own database, temporary
+API key and local server, and shuts down that server when finished:
+
+```powershell
+& .\.venv\Scripts\python.exe scripts/validate.py --schemathesis --newman
+```
+
+The optional `--newman` flag requires Node/npx and downloads Newman if absent.
+The `--schemathesis` flag runs the OpenAPI generated suite and creates its JUnit,
+JSON and HTML reports. The sample spec exercises three read-only operations.
+Import `postman/ProbeFlow.postman_collection.json` into Postman to inspect and
+run the same requests interactively.
+
+For a different service, pass its OpenAPI file to `--schema`, set `--target-url`
+to the development or staging API, and name an environment variable with
+`--header-env`, such as `--header-env Authorization=STAGING_BEARER_TOKEN`. Set
+the variable in your terminal before starting the run. Operations such as POST
+are excluded by default; mark a POST with `x-probeflow-safe: true` only if it has
+no side effects. Keep fuzz runs to services you control and never send generated
+requests to production.
+
+## Optional live LLM investigation
+
+Start a local Ollama instance and install a model supporting JSON-schema output.
+Then run:
+
+```powershell
+& .\.venv\Scripts\python.exe -m probeflow.cli investigate --model qwen2.5-coder:1.5b --out artifacts/live_model.json
+```
+
+The automated tests use controlled model decisions and real HTTP tools. They
+prove graph routing, schema/error handling, check restrictions and execution
+bounds. They do not prove a real model's diagnosis quality. A live-model trace
+must be collected before claiming measured LLM performance.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    JSON[Contract cases / Postman] --> HTTP[Real HTTP calls]
+    HTTP --> API[FastAPI reference or compatible API]
+    API --> DB[(SQLite documents and invoices)]
+    GOLD[Synthetic gold queries] --> EVAL[Retrieval evaluator]
+    EVAL --> HTTP
+    MODEL[Ollama JSON decisions] --> GRAPH[LangGraph plan / tool / observe loop]
+    GRAPH --> HTTP
+    HTTP --> EVIDENCE[Raw predictions, failures and latency samples]
+```
+
+## Scope and interpretation
+
+The reference answer service returns retrieved document excerpts. It does not
+call an LLM or perform dense/vector retrieval. The LLM is an optional investigation
+planner, not the reference answer generator. Benchmark results include the local
+HTTP/SQLite path and exclude model inference. Results on six synthetic policy
+documents and twenty questions are fixture checks, not evidence of general RAG
+accuracy, real healthcare deployment or production scale. Citation validity
+checks document identifiers; it does not establish semantic entailment.
+
+Docker and CI configuration are included. No cloud deployment, hosted CI result,
+professional certification, production customer adoption or clinical capability
+is claimed.
+
+## Recorded local validation - November 1, 2026
+
+| Check | Observed result | Artifact |
+| --- | --- | --- |
+| Pytest, including the HTTP API and schema generated checks | 56 passed | `artifacts/pytest.xml` |
+| JSON contract suite against the running server | 20/20 passed | `artifacts/contracts.json` |
+| Newman/Postman collection | 20 requests, 36 assertions, zero failures | `artifacts/newman-summary.json`, `artifacts/newman.xml` |
+| Schemathesis against 3 safe OpenAPI operations | 141 generated cases, 141 passed, 0 failures in a 30 second run | `artifacts/schemathesis-result.json` |
+| Retrieval fixtures | 15 answerable and 5 unanswerable queries; raw responses retained | `artifacts/retrieval.json` |
+| Concurrent HTTP measurement | 300 requests, 10 concurrent clients; 300 HTTP 200 responses | `artifacts/benchmark.json` |
+
+The retrieval fixture metrics were 1.0 for recall@3, MRR@3, abstention correctness
+and citation-id validity. These are tiny synthetic fixture results. The PDF uses
+sample counts and test coverage scope, rather than presenting them as real-world
+model accuracy. The load run is short and local, not a sustained capacity test.
+A local Ollama service was unavailable during validation, so no live model run
+or model diagnosis-quality result is reported.
+
+## Interview walkthrough
+
+1. Run a known-good contract, change one expected value and inspect the reported failure.
+2. Demonstrate XML entity rejection and explain the difference between validation and authentication.
+3. Trace the vendor `LEFT JOIN`, conditional `SUM` and zero-invoice case, then reconcile the HTTP response against SQLite.
+4. Explain recall versus reciprocal rank, why an unanswerable query should abstain, and why valid citation ids do not prove a truthful answer.
+5. Inspect the LangGraph decision schema, read-only check restriction and step-limit behavior.
+6. Explain local benchmark boundaries and inspect individual raw latency samples.
+
+Open source components are installed as dependencies and credited in
+`THIRD_PARTY_NOTICES.md`. Schemathesis is MIT licensed; its API test runner is
+integrated with upstream attribution preserved.
+

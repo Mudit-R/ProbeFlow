@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="ProbeFlow HTTP Contracts" tests="20" time="0.112">
+  <testsuite name="health" id="0b269efd-3741-4037-8fc4-5c24330105f0" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.022">
+    <testcase name="HTTP 200" time="0.022" classname="Health"/>
+    <testcase name="status" time="0.022" classname="Health"/>
+  </testsuite>
+  <testsuite name="missing_auth" id="bc2a4db6-fc6a-4d0d-9ab2-2883cc8a014e" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="MissingAuth"/>
+  </testsuite>
+  <testsuite name="short_question" id="12be2375-86b8-44a6-b392-f4a29a12abb2" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="HTTP 422" time="0.002" classname="ShortQuestion"/>
+  </testsuite>
+  <testsuite name="invalid_top_k" id="f14bec17-ea5e-4f37-903c-84111d00fe0c" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 422" time="0.003" classname="InvalidTopK"/>
+  </testsuite>
+  <testsuite name="too_large_top_k" id="dec309b6-d986-44ff-85cd-8be99e21514f" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 422" time="0.004" classname="TooLargeTopK"/>
+  </testsuite>
+  <testsuite name="missing_question" id="77e5784f-71fc-4ec6-8fbf-0f8a6f1c5878" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 422" time="0.003" classname="MissingQuestion"/>
+  </testsuite>
+  <testsuite name="retention" id="d13f882b-9b4f-4cac-8c2c-62dbda9765d2" timestamp="2026-11-01T13:04:11.232Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 200" time="0.005" classname="Retention"/>
+    <testcase name="citations.0.document_id" time="0.005" classname="Retention"/>
+    <testcase name="abstained" time="0.005" classname="Retention"/>
+  </testsuite>
+  <testsuite name="access" id="18e73905-7099-4066-8fb5-99783c6b83df" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Access"/>
+    <testcase name="citations.0.document_id" time="0.004" classname="Access"/>
+  </testsuite>
+  <testsuite name="invoice" id="f3ae60a2-b5e8-492d-9fa1-947aec019649" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 200" time="0.005" classname="Invoice"/>
+    <testcase name="citations.0.document_id" time="0.005" classname="Invoice"/>
+  </testsuite>
+  <testsuite name="incident" id="ed51f499-bf65-4491-8e9d-392cb944f1a8" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Incident"/>
+    <testcase name="citations.0.document_id" time="0.004" classname="Incident"/>
+  </testsuite>
+  <testsuite name="backup" id="eca9aa2e-16ad-4b08-88f1-ffe6461c82ca" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Backup"/>
+    <testcase name="citations.0.document_id" time="0.004" classname="Backup"/>
+  </testsuite>
+  <testsuite name="onboarding" id="5aa3b929-3aac-4758-88be-47ad282e0a12" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Onboarding"/>
+    <testcase name="citations.0.document_id" time="0.004" classname="Onboarding"/>
+  </testsuite>
+  <testsuite name="unanswerable" id="2817ecbf-ecb3-405f-a796-47c148be2b41" timestamp="2026-11-01T13:04:11.232Z" tests="3" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 200" time="0.003" classname="Unanswerable"/>
+    <testcase name="abstained" time="0.003" classname="Unanswerable"/>
+    <testcase name="citations" time="0.003" classname="Unanswerable"/>
+  </testsuite>
+  <testsuite name="stop_words" id="82e93072-eb8c-4bc8-a9a9-1fa8a5d5b3a3" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 200" time="0.003" classname="StopWords"/>
+    <testcase name="abstained" time="0.003" classname="StopWords"/>
+  </testsuite>
+  <testsuite name="sql_vendor_total" id="ad226be8-8343-4612-902c-ff8460d6ac10" timestamp="2026-11-01T13:04:11.232Z" tests="4" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="SqlVendorTotal"/>
+    <testcase name="vendors.0.total_rupees" time="0.004" classname="SqlVendorTotal"/>
+    <testcase name="vendors.0.outstanding_rupees" time="0.004" classname="SqlVendorTotal"/>
+    <testcase name="vendors.2.invoice_count" time="0.004" classname="SqlVendorTotal"/>
+  </testsuite>
+  <testsuite name="sql_requires_auth" id="9b194f1f-82d2-4968-b26e-b7aba5bae557" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="SqlRequiresAuth"/>
+  </testsuite>
+  <testsuite name="json_ingestion" id="b695f00f-9ba2-4329-8a12-abe9ed262239" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 200" time="0.020" classname="JsonIngestion"/>
+    <testcase name="stored" time="0.020" classname="JsonIngestion"/>
+  </testsuite>
+  <testsuite name="xml_ingestion" id="0a0e3503-8bf7-43ad-ba3a-b0697cb2f100" timestamp="2026-11-01T13:04:11.232Z" tests="2" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 200" time="0.012" classname="XmlIngestion"/>
+    <testcase name="stored" time="0.012" classname="XmlIngestion"/>
+  </testsuite>
+  <testsuite name="malformed_xml" id="205a046a-89fd-4bb7-9cee-a5c1c3021e99" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="HTTP 422" time="0.002" classname="MalformedXml"/>
+  </testsuite>
+  <testsuite name="empty_document" id="52f65818-61aa-464e-adea-b7913cf43c5c" timestamp="2026-11-01T13:04:11.232Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="HTTP 422" time="0.002" classname="EmptyDocument"/>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,22 @@
+[
+  {"id":"health","method":"GET","path":"/healthz","status":200,"authenticated":false,"checks":[{"path":"status","equals":"ok"}]},
+  {"id":"missing_auth","method":"POST","path":"/v1/answer","status":401,"authenticated":false,"json_body":{"question":"backup recovery"}},
+  {"id":"short_question","method":"POST","path":"/v1/answer","status":422,"json_body":{"question":"x"}},
+  {"id":"invalid_top_k","method":"POST","path":"/v1/answer","status":422,"json_body":{"question":"backup recovery","top_k":0}},
+  {"id":"too_large_top_k","method":"POST","path":"/v1/answer","status":422,"json_body":{"question":"backup recovery","top_k":6}},
+  {"id":"missing_question","method":"POST","path":"/v1/answer","status":422,"json_body":{}},
+  {"id":"retention","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"retention policy"},"checks":[{"path":"citations.0.document_id","equals":"retention"},{"path":"abstained","equals":false}]},
+  {"id":"access","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"access review"},"checks":[{"path":"citations.0.document_id","equals":"access"}]},
+  {"id":"invoice","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"invoice approval"},"checks":[{"path":"citations.0.document_id","equals":"invoice"}]},
+  {"id":"incident","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"critical incident escalation"},"checks":[{"path":"citations.0.document_id","equals":"incident"}]},
+  {"id":"backup","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"database backup recovery"},"checks":[{"path":"citations.0.document_id","equals":"backup"}]},
+  {"id":"onboarding","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"vendor onboarding"},"checks":[{"path":"citations.0.document_id","equals":"onboarding"}]},
+  {"id":"unanswerable","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"Who discovered Neptune?"},"checks":[{"path":"abstained","equals":true},{"path":"citations","equals":[]}]},
+  {"id":"stop_words","method":"POST","path":"/v1/answer","status":200,"json_body":{"question":"the and for"},"checks":[{"path":"abstained","equals":true}]},
+  {"id":"sql_vendor_total","method":"GET","path":"/v1/vendors","status":200,"checks":[{"path":"vendors.0.total_rupees","equals":35000},{"path":"vendors.0.outstanding_rupees","equals":25000},{"path":"vendors.2.invoice_count","equals":0}]},
+  {"id":"sql_requires_auth","method":"GET","path":"/v1/vendors","status":401,"authenticated":false},
+  {"id":"json_ingestion","method":"PUT","path":"/v1/documents/contract_json","status":200,"read_only":false,"json_body":{"title":"Contract JSON","text":"Synthetic zebra contract fixture."},"checks":[{"path":"stored","equals":true}]},
+  {"id":"xml_ingestion","method":"PUT","path":"/v1/documents-xml/contract_xml","status":200,"read_only":false,"xml_body":"<document><title>Contract XML</title><text>Synthetic amber contract fixture.</text></document>","checks":[{"path":"stored","equals":true}]},
+  {"id":"malformed_xml","method":"PUT","path":"/v1/documents-xml/broken","status":422,"read_only":false,"xml_body":"<document><title>broken"},
+  {"id":"empty_document","method":"PUT","path":"/v1/documents/empty","status":422,"read_only":false,"json_body":{"title":"","text":""}}
+]

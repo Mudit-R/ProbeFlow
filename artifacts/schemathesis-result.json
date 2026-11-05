@@ -1,0 +1,115 @@
+{
+  "id": "347dfd8b47454567846f6488d63c8858",
+  "status": "passed",
+  "exit_code": 0,
+  "operation_count": 3,
+  "run_directory": "artifacts/openapi_runs/347dfd8b47454567846f6488d63c8858",
+  "junit_report": "artifacts/openapi_runs/347dfd8b47454567846f6488d63c8858/junit.xml",
+  "html_report": "artifacts/openapi_runs/347dfd8b47454567846f6488d63c8858/html-report/index.html",
+  "json_report": "artifacts/openapi_runs/347dfd8b47454567846f6488d63c8858/result.json",
+  "summary": {
+    "schemathesis_version": "4.32.7",
+    "seed": 151470615248927667977616108938206044750,
+    "started_at": "2026-11-01T13:03:36.947377+00:00",
+    "running_time": 30.5,
+    "stop_reason": "max_time",
+    "complete": true,
+    "exit_code": 0,
+    "operations": {
+      "total": 3,
+      "selected": 3,
+      "tested": 3,
+      "errored": 0,
+      "skipped": 0,
+      "skip_reasons": []
+    },
+    "phases": {
+      "examples": {
+        "status": "skip",
+        "skip_reason": null
+      },
+      "coverage": {
+        "status": "success",
+        "skip_reason": null
+      },
+      "fuzzing": {
+        "status": "success",
+        "skip_reason": null
+      },
+      "stateful": {
+        "status": "skip",
+        "skip_reason": "not_applicable"
+      }
+    },
+    "test_cases": {
+      "generated": 141,
+      "with_failures": 0,
+      "unique_failures": 0,
+      "without_checks": 0,
+      "errored": 0
+    },
+    "failures": [],
+    "errors": [],
+    "baseline": null,
+    "filtered": 0,
+    "warnings": {
+      "missing_auth": [],
+      "base_url_mismatch": [],
+      "missing_test_data": [],
+      "validation_mismatch": [],
+      "missing_deserializer": [],
+      "unused_openapi_auth": [],
+      "unsupported_regex": [],
+      "method_not_allowed": [],
+      "constants_extraction": [],
+      "unmatched_filter": [],
+      "unresolvable_reference": [],
+      "low_valid_rate": [],
+      "rate_limited": [],
+      "dictionary_mismatch": []
+    },
+    "valid_rates": {
+      "GET /healthz": {
+        "coverage": {
+          "accepted": 1,
+          "unreachable": 0,
+          "conflicts": 0,
+          "rejected": 0
+        },
+        "fuzzing": {
+          "accepted": 1,
+          "unreachable": 0,
+          "conflicts": 0,
+          "rejected": 0
+        }
+      },
+      "GET /v1/vendors": {
+        "coverage": {
+          "accepted": 1,
+          "unreachable": 0,
+          "conflicts": 0,
+          "rejected": 0
+        },
+        "fuzzing": {
+          "accepted": 1,
+          "unreachable": 0,
+          "conflicts": 0,
+          "rejected": 0
+        }
+      },
+      "POST /v1/answer": {
+        "fuzzing": {
+          "accepted": 1,
+          "unreachable": 0,
+          "conflicts": 0,
+          "rejected": 0
+        }
+      }
+    },
+    "auth": {
+      "reauth_count": 0,
+      "reauth_broke": false
+    }
+  },
+  "stderr": ""
+}

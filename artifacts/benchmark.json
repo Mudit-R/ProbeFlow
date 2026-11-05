@@ -1,0 +1,1518 @@
+{
+  "scope": "local synthetic extractive reference API, /v1/answer; includes HTTP and SQLite retrieval, excludes LLM inference",
+  "timestamp_utc": "2026-11-01T13:03:33.841316+00:00",
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "requests": 300,
+  "concurrency": 10,
+  "seconds": 0.3161011000001963,
+  "requests_per_second": 949.0634483708335,
+  "status_counts": {
+    "200": 300
+  },
+  "p50_ms": 8.90320000007705,
+  "p95_ms": 19.793200000094657,
+  "p99_ms": 33.12419999974736,
+  "raw_samples": [
+    {
+      "request": 0,
+      "latency_ms": 7.208700000319368,
+      "status": "200"
+    },
+    {
+      "request": 1,
+      "latency_ms": 15.782499999659194,
+      "status": "200"
+    },
+    {
+      "request": 2,
+      "latency_ms": 16.228099999807455,
+      "status": "200"
+    },
+    {
+      "request": 7,
+      "latency_ms": 16.262499999811553,
+      "status": "200"
+    },
+    {
+      "request": 9,
+      "latency_ms": 18.162500000016735,
+      "status": "200"
+    },
+    {
+      "request": 3,
+      "latency_ms": 18.884000000070955,
+      "status": "200"
+    },
+    {
+      "request": 4,
+      "latency_ms": 19.793200000094657,
+      "status": "200"
+    },
+    {
+      "request": 5,
+      "latency_ms": 20.11690000017552,
+      "status": "200"
+    },
+    {
+      "request": 6,
+      "latency_ms": 20.615899999938847,
+      "status": "200"
+    },
+    {
+      "request": 10,
+      "latency_ms": 14.287099999819475,
+      "status": "200"
+    },
+    {
+      "request": 11,
+      "latency_ms": 7.679600000301434,
+      "status": "200"
+    },
+    {
+      "request": 13,
+      "latency_ms": 7.2288000001208275,
+      "status": "200"
+    },
+    {
+      "request": 12,
+      "latency_ms": 9.492900000168447,
+      "status": "200"
+    },
+    {
+      "request": 14,
+      "latency_ms": 7.338999999774387,
+      "status": "200"
+    },
+    {
+      "request": 15,
+      "latency_ms": 9.704000000056112,
+      "status": "200"
+    },
+    {
+      "request": 17,
+      "latency_ms": 9.261800000331277,
+      "status": "200"
+    },
+    {
+      "request": 19,
+      "latency_ms": 9.591999999884138,
+      "status": "200"
+    },
+    {
+      "request": 16,
+      "latency_ms": 10.728799999924377,
+      "status": "200"
+    },
+    {
+      "request": 18,
+      "latency_ms": 10.25679999975182,
+      "status": "200"
+    },
+    {
+      "request": 8,
+      "latency_ms": 33.12419999974736,
+      "status": "200"
+    },
+    {
+      "request": 20,
+      "latency_ms": 10.962400000153139,
+      "status": "200"
+    },
+    {
+      "request": 21,
+      "latency_ms": 10.32149999991816,
+      "status": "200"
+    },
+    {
+      "request": 22,
+      "latency_ms": 9.069300000192015,
+      "status": "200"
+    },
+    {
+      "request": 23,
+      "latency_ms": 8.77749999972366,
+      "status": "200"
+    },
+    {
+      "request": 24,
+      "latency_ms": 8.876500000042142,
+      "status": "200"
+    },
+    {
+      "request": 25,
+      "latency_ms": 8.632800000214047,
+      "status": "200"
+    },
+    {
+      "request": 28,
+      "latency_ms": 8.90320000007705,
+      "status": "200"
+    },
+    {
+      "request": 26,
+      "latency_ms": 11.161399999764399,
+      "status": "200"
+    },
+    {
+      "request": 27,
+      "latency_ms": 10.891599999922619,
+      "status": "200"
+    },
+    {
+      "request": 29,
+      "latency_ms": 9.365699999762,
+      "status": "200"
+    },
+    {
+      "request": 31,
+      "latency_ms": 9.227200000168523,
+      "status": "200"
+    },
+    {
+      "request": 30,
+      "latency_ms": 9.679299999788782,
+      "status": "200"
+    },
+    {
+      "request": 33,
+      "latency_ms": 9.430800000245654,
+      "status": "200"
+    },
+    {
+      "request": 34,
+      "latency_ms": 9.327199999916047,
+      "status": "200"
+    },
+    {
+      "request": 35,
+      "latency_ms": 9.325799999714945,
+      "status": "200"
+    },
+    {
+      "request": 32,
+      "latency_ms": 13.64929999999731,
+      "status": "200"
+    },
+    {
+      "request": 36,
+      "latency_ms": 10.194399999818415,
+      "status": "200"
+    },
+    {
+      "request": 37,
+      "latency_ms": 9.066099999927246,
+      "status": "200"
+    },
+    {
+      "request": 38,
+      "latency_ms": 10.090700000091601,
+      "status": "200"
+    },
+    {
+      "request": 42,
+      "latency_ms": 8.556700000099227,
+      "status": "200"
+    },
+    {
+      "request": 41,
+      "latency_ms": 9.684900000138441,
+      "status": "200"
+    },
+    {
+      "request": 40,
+      "latency_ms": 10.720400000082009,
+      "status": "200"
+    },
+    {
+      "request": 43,
+      "latency_ms": 8.392300000195974,
+      "status": "200"
+    },
+    {
+      "request": 44,
+      "latency_ms": 7.951399999910791,
+      "status": "200"
+    },
+    {
+      "request": 45,
+      "latency_ms": 7.988900000327703,
+      "status": "200"
+    },
+    {
+      "request": 46,
+      "latency_ms": 8.57480000013311,
+      "status": "200"
+    },
+    {
+      "request": 47,
+      "latency_ms": 8.655199999793695,
+      "status": "200"
+    },
+    {
+      "request": 48,
+      "latency_ms": 8.054099999753817,
+      "status": "200"
+    },
+    {
+      "request": 49,
+      "latency_ms": 9.715300000152638,
+      "status": "200"
+    },
+    {
+      "request": 50,
+      "latency_ms": 9.564100000261533,
+      "status": "200"
+    },
+    {
+      "request": 51,
+      "latency_ms": 8.827900000142108,
+      "status": "200"
+    },
+    {
+      "request": 39,
+      "latency_ms": 20.24970000002213,
+      "status": "200"
+    },
+    {
+      "request": 54,
+      "latency_ms": 8.031899999878078,
+      "status": "200"
+    },
+    {
+      "request": 53,
+      "latency_ms": 9.02749999977459,
+      "status": "200"
+    },
+    {
+      "request": 55,
+      "latency_ms": 6.707699999878969,
+      "status": "200"
+    },
+    {
+      "request": 57,
+      "latency_ms": 7.327100000111386,
+      "status": "200"
+    },
+    {
+      "request": 56,
+      "latency_ms": 8.206399999835412,
+      "status": "200"
+    },
+    {
+      "request": 58,
+      "latency_ms": 7.232399999793415,
+      "status": "200"
+    },
+    {
+      "request": 59,
+      "latency_ms": 7.672100000036153,
+      "status": "200"
+    },
+    {
+      "request": 60,
+      "latency_ms": 8.895599999959813,
+      "status": "200"
+    },
+    {
+      "request": 61,
+      "latency_ms": 9.059699999852455,
+      "status": "200"
+    },
+    {
+      "request": 63,
+      "latency_ms": 8.688900000379363,
+      "status": "200"
+    },
+    {
+      "request": 64,
+      "latency_ms": 8.233300000028976,
+      "status": "200"
+    },
+    {
+      "request": 66,
+      "latency_ms": 6.380300000273564,
+      "status": "200"
+    },
+    {
+      "request": 65,
+      "latency_ms": 8.461800000077346,
+      "status": "200"
+    },
+    {
+      "request": 68,
+      "latency_ms": 6.7955999998048355,
+      "status": "200"
+    },
+    {
+      "request": 67,
+      "latency_ms": 8.475099999941449,
+      "status": "200"
+    },
+    {
+      "request": 62,
+      "latency_ms": 14.352599999710947,
+      "status": "200"
+    },
+    {
+      "request": 52,
+      "latency_ms": 24.15210000026491,
+      "status": "200"
+    },
+    {
+      "request": 69,
+      "latency_ms": 8.130499999879248,
+      "status": "200"
+    },
+    {
+      "request": 70,
+      "latency_ms": 8.417699999881734,
+      "status": "200"
+    },
+    {
+      "request": 71,
+      "latency_ms": 9.140999999999622,
+      "status": "200"
+    },
+    {
+      "request": 72,
+      "latency_ms": 9.430500000235043,
+      "status": "200"
+    },
+    {
+      "request": 73,
+      "latency_ms": 9.598800000276242,
+      "status": "200"
+    },
+    {
+      "request": 74,
+      "latency_ms": 8.536700000149722,
+      "status": "200"
+    },
+    {
+      "request": 75,
+      "latency_ms": 9.454200000163837,
+      "status": "200"
+    },
+    {
+      "request": 76,
+      "latency_ms": 8.976399999937712,
+      "status": "200"
+    },
+    {
+      "request": 78,
+      "latency_ms": 9.022100000038336,
+      "status": "200"
+    },
+    {
+      "request": 77,
+      "latency_ms": 9.908200000154466,
+      "status": "200"
+    },
+    {
+      "request": 79,
+      "latency_ms": 8.342799999809358,
+      "status": "200"
+    },
+    {
+      "request": 80,
+      "latency_ms": 9.227799999734998,
+      "status": "200"
+    },
+    {
+      "request": 81,
+      "latency_ms": 9.080700000140496,
+      "status": "200"
+    },
+    {
+      "request": 84,
+      "latency_ms": 10.651999999936379,
+      "status": "200"
+    },
+    {
+      "request": 83,
+      "latency_ms": 12.092099999790662,
+      "status": "200"
+    },
+    {
+      "request": 82,
+      "latency_ms": 12.845199999901524,
+      "status": "200"
+    },
+    {
+      "request": 86,
+      "latency_ms": 9.576500000093802,
+      "status": "200"
+    },
+    {
+      "request": 85,
+      "latency_ms": 10.165499999857275,
+      "status": "200"
+    },
+    {
+      "request": 87,
+      "latency_ms": 10.878999999931693,
+      "status": "200"
+    },
+    {
+      "request": 89,
+      "latency_ms": 11.14880000022822,
+      "status": "200"
+    },
+    {
+      "request": 88,
+      "latency_ms": 12.730699999792705,
+      "status": "200"
+    },
+    {
+      "request": 90,
+      "latency_ms": 11.588399999709509,
+      "status": "200"
+    },
+    {
+      "request": 92,
+      "latency_ms": 8.682000000135304,
+      "status": "200"
+    },
+    {
+      "request": 94,
+      "latency_ms": 8.403199999975186,
+      "status": "200"
+    },
+    {
+      "request": 95,
+      "latency_ms": 8.119600000100036,
+      "status": "200"
+    },
+    {
+      "request": 96,
+      "latency_ms": 9.131300000262854,
+      "status": "200"
+    },
+    {
+      "request": 97,
+      "latency_ms": 7.684400000016467,
+      "status": "200"
+    },
+    {
+      "request": 98,
+      "latency_ms": 7.5773000003209745,
+      "status": "200"
+    },
+    {
+      "request": 93,
+      "latency_ms": 13.584600000285718,
+      "status": "200"
+    },
+    {
+      "request": 99,
+      "latency_ms": 8.476399999835849,
+      "status": "200"
+    },
+    {
+      "request": 100,
+      "latency_ms": 8.804999999938445,
+      "status": "200"
+    },
+    {
+      "request": 101,
+      "latency_ms": 7.671399999708228,
+      "status": "200"
+    },
+    {
+      "request": 102,
+      "latency_ms": 6.922399999893969,
+      "status": "200"
+    },
+    {
+      "request": 103,
+      "latency_ms": 8.433099999820115,
+      "status": "200"
+    },
+    {
+      "request": 105,
+      "latency_ms": 7.268699999713135,
+      "status": "200"
+    },
+    {
+      "request": 104,
+      "latency_ms": 8.071099999597209,
+      "status": "200"
+    },
+    {
+      "request": 106,
+      "latency_ms": 7.520900000145048,
+      "status": "200"
+    },
+    {
+      "request": 107,
+      "latency_ms": 8.422299999892857,
+      "status": "200"
+    },
+    {
+      "request": 108,
+      "latency_ms": 9.083899999950518,
+      "status": "200"
+    },
+    {
+      "request": 109,
+      "latency_ms": 8.558699999866803,
+      "status": "200"
+    },
+    {
+      "request": 111,
+      "latency_ms": 8.218399999805115,
+      "status": "200"
+    },
+    {
+      "request": 112,
+      "latency_ms": 7.064500000069529,
+      "status": "200"
+    },
+    {
+      "request": 115,
+      "latency_ms": 7.308800000373594,
+      "status": "200"
+    },
+    {
+      "request": 114,
+      "latency_ms": 8.138199999848439,
+      "status": "200"
+    },
+    {
+      "request": 113,
+      "latency_ms": 8.942299999944225,
+      "status": "200"
+    },
+    {
+      "request": 116,
+      "latency_ms": 7.883100000071863,
+      "status": "200"
+    },
+    {
+      "request": 91,
+      "latency_ms": 34.7249000001284,
+      "status": "200"
+    },
+    {
+      "request": 110,
+      "latency_ms": 15.473200000087672,
+      "status": "200"
+    },
+    {
+      "request": 117,
+      "latency_ms": 8.927300000323157,
+      "status": "200"
+    },
+    {
+      "request": 119,
+      "latency_ms": 9.12400000015623,
+      "status": "200"
+    },
+    {
+      "request": 120,
+      "latency_ms": 8.621000000403,
+      "status": "200"
+    },
+    {
+      "request": 118,
+      "latency_ms": 10.926300000392075,
+      "status": "200"
+    },
+    {
+      "request": 121,
+      "latency_ms": 8.571099999699072,
+      "status": "200"
+    },
+    {
+      "request": 122,
+      "latency_ms": 8.438599999863072,
+      "status": "200"
+    },
+    {
+      "request": 123,
+      "latency_ms": 10.104699999828881,
+      "status": "200"
+    },
+    {
+      "request": 124,
+      "latency_ms": 8.519900000010239,
+      "status": "200"
+    },
+    {
+      "request": 125,
+      "latency_ms": 9.038000000145985,
+      "status": "200"
+    },
+    {
+      "request": 126,
+      "latency_ms": 9.036299999934272,
+      "status": "200"
+    },
+    {
+      "request": 128,
+      "latency_ms": 7.599699999900622,
+      "status": "200"
+    },
+    {
+      "request": 127,
+      "latency_ms": 9.49110000010478,
+      "status": "200"
+    },
+    {
+      "request": 130,
+      "latency_ms": 9.353300000384479,
+      "status": "200"
+    },
+    {
+      "request": 131,
+      "latency_ms": 9.170100000119419,
+      "status": "200"
+    },
+    {
+      "request": 132,
+      "latency_ms": 8.713799999895855,
+      "status": "200"
+    },
+    {
+      "request": 133,
+      "latency_ms": 7.389800000055402,
+      "status": "200"
+    },
+    {
+      "request": 134,
+      "latency_ms": 7.411699999920529,
+      "status": "200"
+    },
+    {
+      "request": 129,
+      "latency_ms": 12.764500000230328,
+      "status": "200"
+    },
+    {
+      "request": 135,
+      "latency_ms": 9.023600000091392,
+      "status": "200"
+    },
+    {
+      "request": 136,
+      "latency_ms": 8.699299999989307,
+      "status": "200"
+    },
+    {
+      "request": 137,
+      "latency_ms": 8.715500000107568,
+      "status": "200"
+    },
+    {
+      "request": 138,
+      "latency_ms": 10.035199999947508,
+      "status": "200"
+    },
+    {
+      "request": 139,
+      "latency_ms": 10.431200000311946,
+      "status": "200"
+    },
+    {
+      "request": 141,
+      "latency_ms": 10.654400000021269,
+      "status": "200"
+    },
+    {
+      "request": 143,
+      "latency_ms": 10.316899999907037,
+      "status": "200"
+    },
+    {
+      "request": 142,
+      "latency_ms": 11.415400000259979,
+      "status": "200"
+    },
+    {
+      "request": 144,
+      "latency_ms": 10.955600000215782,
+      "status": "200"
+    },
+    {
+      "request": 140,
+      "latency_ms": 13.068499999917549,
+      "status": "200"
+    },
+    {
+      "request": 145,
+      "latency_ms": 10.250799999994342,
+      "status": "200"
+    },
+    {
+      "request": 146,
+      "latency_ms": 11.113900000054855,
+      "status": "200"
+    },
+    {
+      "request": 147,
+      "latency_ms": 9.68460000012783,
+      "status": "200"
+    },
+    {
+      "request": 148,
+      "latency_ms": 9.19290000001638,
+      "status": "200"
+    },
+    {
+      "request": 149,
+      "latency_ms": 8.820700000342185,
+      "status": "200"
+    },
+    {
+      "request": 151,
+      "latency_ms": 8.645999999771448,
+      "status": "200"
+    },
+    {
+      "request": 150,
+      "latency_ms": 10.046200000033423,
+      "status": "200"
+    },
+    {
+      "request": 153,
+      "latency_ms": 8.85840000000826,
+      "status": "200"
+    },
+    {
+      "request": 152,
+      "latency_ms": 9.893100000226696,
+      "status": "200"
+    },
+    {
+      "request": 155,
+      "latency_ms": 9.355899999718531,
+      "status": "200"
+    },
+    {
+      "request": 156,
+      "latency_ms": 8.736400000088906,
+      "status": "200"
+    },
+    {
+      "request": 157,
+      "latency_ms": 9.753100000125414,
+      "status": "200"
+    },
+    {
+      "request": 158,
+      "latency_ms": 9.837200000220037,
+      "status": "200"
+    },
+    {
+      "request": 159,
+      "latency_ms": 8.340700000189827,
+      "status": "200"
+    },
+    {
+      "request": 161,
+      "latency_ms": 8.04420000031314,
+      "status": "200"
+    },
+    {
+      "request": 160,
+      "latency_ms": 9.458399999857647,
+      "status": "200"
+    },
+    {
+      "request": 163,
+      "latency_ms": 8.0324999998993,
+      "status": "200"
+    },
+    {
+      "request": 162,
+      "latency_ms": 9.130099999765662,
+      "status": "200"
+    },
+    {
+      "request": 165,
+      "latency_ms": 8.963299999777519,
+      "status": "200"
+    },
+    {
+      "request": 164,
+      "latency_ms": 11.00609999957669,
+      "status": "200"
+    },
+    {
+      "request": 168,
+      "latency_ms": 7.99509999978909,
+      "status": "200"
+    },
+    {
+      "request": 154,
+      "latency_ms": 21.954200000436686,
+      "status": "200"
+    },
+    {
+      "request": 167,
+      "latency_ms": 8.656599999994796,
+      "status": "200"
+    },
+    {
+      "request": 166,
+      "latency_ms": 9.266000000025088,
+      "status": "200"
+    },
+    {
+      "request": 169,
+      "latency_ms": 7.449300000189396,
+      "status": "200"
+    },
+    {
+      "request": 172,
+      "latency_ms": 7.106799999746727,
+      "status": "200"
+    },
+    {
+      "request": 171,
+      "latency_ms": 7.956200000080571,
+      "status": "200"
+    },
+    {
+      "request": 173,
+      "latency_ms": 6.190300000071147,
+      "status": "200"
+    },
+    {
+      "request": 175,
+      "latency_ms": 7.498700000269309,
+      "status": "200"
+    },
+    {
+      "request": 174,
+      "latency_ms": 7.866700000249693,
+      "status": "200"
+    },
+    {
+      "request": 178,
+      "latency_ms": 7.998999999927037,
+      "status": "200"
+    },
+    {
+      "request": 182,
+      "latency_ms": 5.429600000297796,
+      "status": "200"
+    },
+    {
+      "request": 177,
+      "latency_ms": 9.778699999969831,
+      "status": "200"
+    },
+    {
+      "request": 180,
+      "latency_ms": 7.8066999999464315,
+      "status": "200"
+    },
+    {
+      "request": 179,
+      "latency_ms": 9.54989999991085,
+      "status": "200"
+    },
+    {
+      "request": 176,
+      "latency_ms": 11.445199999798206,
+      "status": "200"
+    },
+    {
+      "request": 170,
+      "latency_ms": 18.12789999985398,
+      "status": "200"
+    },
+    {
+      "request": 184,
+      "latency_ms": 7.958199999848148,
+      "status": "200"
+    },
+    {
+      "request": 183,
+      "latency_ms": 8.492500000102154,
+      "status": "200"
+    },
+    {
+      "request": 185,
+      "latency_ms": 8.359999999811407,
+      "status": "200"
+    },
+    {
+      "request": 187,
+      "latency_ms": 7.067699999879551,
+      "status": "200"
+    },
+    {
+      "request": 186,
+      "latency_ms": 8.911500000067463,
+      "status": "200"
+    },
+    {
+      "request": 190,
+      "latency_ms": 7.11989999990692,
+      "status": "200"
+    },
+    {
+      "request": 191,
+      "latency_ms": 6.234299999960058,
+      "status": "200"
+    },
+    {
+      "request": 192,
+      "latency_ms": 6.751399999757268,
+      "status": "200"
+    },
+    {
+      "request": 193,
+      "latency_ms": 8.496899999954621,
+      "status": "200"
+    },
+    {
+      "request": 194,
+      "latency_ms": 7.94850000011138,
+      "status": "200"
+    },
+    {
+      "request": 195,
+      "latency_ms": 8.248799999819312,
+      "status": "200"
+    },
+    {
+      "request": 197,
+      "latency_ms": 7.602399999996123,
+      "status": "200"
+    },
+    {
+      "request": 198,
+      "latency_ms": 7.354999999733991,
+      "status": "200"
+    },
+    {
+      "request": 196,
+      "latency_ms": 7.845000000088476,
+      "status": "200"
+    },
+    {
+      "request": 181,
+      "latency_ms": 25.866800000130752,
+      "status": "200"
+    },
+    {
+      "request": 199,
+      "latency_ms": 8.510999999998603,
+      "status": "200"
+    },
+    {
+      "request": 200,
+      "latency_ms": 7.635100000243256,
+      "status": "200"
+    },
+    {
+      "request": 201,
+      "latency_ms": 7.590300000174466,
+      "status": "200"
+    },
+    {
+      "request": 203,
+      "latency_ms": 7.062799999857816,
+      "status": "200"
+    },
+    {
+      "request": 205,
+      "latency_ms": 6.8228000000090105,
+      "status": "200"
+    },
+    {
+      "request": 204,
+      "latency_ms": 8.348700000169629,
+      "status": "200"
+    },
+    {
+      "request": 207,
+      "latency_ms": 6.344899999930931,
+      "status": "200"
+    },
+    {
+      "request": 209,
+      "latency_ms": 5.350000000362343,
+      "status": "200"
+    },
+    {
+      "request": 208,
+      "latency_ms": 7.213999999748921,
+      "status": "200"
+    },
+    {
+      "request": 210,
+      "latency_ms": 6.12379999984114,
+      "status": "200"
+    },
+    {
+      "request": 212,
+      "latency_ms": 5.599600000095961,
+      "status": "200"
+    },
+    {
+      "request": 211,
+      "latency_ms": 7.17869999971299,
+      "status": "200"
+    },
+    {
+      "request": 188,
+      "latency_ms": 34.118000000034954,
+      "status": "200"
+    },
+    {
+      "request": 213,
+      "latency_ms": 8.058299999902374,
+      "status": "200"
+    },
+    {
+      "request": 202,
+      "latency_ms": 19.917999999961467,
+      "status": "200"
+    },
+    {
+      "request": 214,
+      "latency_ms": 7.467400000223279,
+      "status": "200"
+    },
+    {
+      "request": 189,
+      "latency_ms": 35.764799999924435,
+      "status": "200"
+    },
+    {
+      "request": 206,
+      "latency_ms": 17.725599999721453,
+      "status": "200"
+    },
+    {
+      "request": 217,
+      "latency_ms": 6.819499999892287,
+      "status": "200"
+    },
+    {
+      "request": 215,
+      "latency_ms": 8.434400000169262,
+      "status": "200"
+    },
+    {
+      "request": 218,
+      "latency_ms": 7.05279999965569,
+      "status": "200"
+    },
+    {
+      "request": 219,
+      "latency_ms": 4.537899999832007,
+      "status": "200"
+    },
+    {
+      "request": 220,
+      "latency_ms": 8.004499999969994,
+      "status": "200"
+    },
+    {
+      "request": 222,
+      "latency_ms": 8.590800000092713,
+      "status": "200"
+    },
+    {
+      "request": 223,
+      "latency_ms": 7.382899999811343,
+      "status": "200"
+    },
+    {
+      "request": 225,
+      "latency_ms": 9.321399999862479,
+      "status": "200"
+    },
+    {
+      "request": 221,
+      "latency_ms": 11.54339999993681,
+      "status": "200"
+    },
+    {
+      "request": 224,
+      "latency_ms": 10.450700000092183,
+      "status": "200"
+    },
+    {
+      "request": 227,
+      "latency_ms": 10.39519999994809,
+      "status": "200"
+    },
+    {
+      "request": 226,
+      "latency_ms": 11.115600000266568,
+      "status": "200"
+    },
+    {
+      "request": 228,
+      "latency_ms": 9.62870000012117,
+      "status": "200"
+    },
+    {
+      "request": 216,
+      "latency_ms": 21.742299999914394,
+      "status": "200"
+    },
+    {
+      "request": 229,
+      "latency_ms": 8.67019999986951,
+      "status": "200"
+    },
+    {
+      "request": 230,
+      "latency_ms": 8.312999999816384,
+      "status": "200"
+    },
+    {
+      "request": 231,
+      "latency_ms": 8.536900000308378,
+      "status": "200"
+    },
+    {
+      "request": 232,
+      "latency_ms": 8.531700000276032,
+      "status": "200"
+    },
+    {
+      "request": 233,
+      "latency_ms": 9.082399999897461,
+      "status": "200"
+    },
+    {
+      "request": 234,
+      "latency_ms": 8.96969999985231,
+      "status": "200"
+    },
+    {
+      "request": 237,
+      "latency_ms": 8.028100000046834,
+      "status": "200"
+    },
+    {
+      "request": 236,
+      "latency_ms": 9.458200000153738,
+      "status": "200"
+    },
+    {
+      "request": 238,
+      "latency_ms": 8.659999999963475,
+      "status": "200"
+    },
+    {
+      "request": 241,
+      "latency_ms": 7.8792999997858715,
+      "status": "200"
+    },
+    {
+      "request": 239,
+      "latency_ms": 9.271300000364135,
+      "status": "200"
+    },
+    {
+      "request": 240,
+      "latency_ms": 9.302299999944807,
+      "status": "200"
+    },
+    {
+      "request": 242,
+      "latency_ms": 8.3279999998922,
+      "status": "200"
+    },
+    {
+      "request": 243,
+      "latency_ms": 10.896999999658874,
+      "status": "200"
+    },
+    {
+      "request": 244,
+      "latency_ms": 11.770699999942735,
+      "status": "200"
+    },
+    {
+      "request": 245,
+      "latency_ms": 11.109699999906297,
+      "status": "200"
+    },
+    {
+      "request": 235,
+      "latency_ms": 19.916700000067067,
+      "status": "200"
+    },
+    {
+      "request": 246,
+      "latency_ms": 10.864700000183802,
+      "status": "200"
+    },
+    {
+      "request": 248,
+      "latency_ms": 9.766200000285608,
+      "status": "200"
+    },
+    {
+      "request": 249,
+      "latency_ms": 9.283299999879091,
+      "status": "200"
+    },
+    {
+      "request": 247,
+      "latency_ms": 10.740100000020902,
+      "status": "200"
+    },
+    {
+      "request": 250,
+      "latency_ms": 9.75300000027346,
+      "status": "200"
+    },
+    {
+      "request": 251,
+      "latency_ms": 8.178399999906105,
+      "status": "200"
+    },
+    {
+      "request": 252,
+      "latency_ms": 5.635299999994459,
+      "status": "200"
+    },
+    {
+      "request": 253,
+      "latency_ms": 4.98539999989589,
+      "status": "200"
+    },
+    {
+      "request": 254,
+      "latency_ms": 8.735599999909027,
+      "status": "200"
+    },
+    {
+      "request": 261,
+      "latency_ms": 6.340100000215898,
+      "status": "200"
+    },
+    {
+      "request": 259,
+      "latency_ms": 8.352800000011484,
+      "status": "200"
+    },
+    {
+      "request": 257,
+      "latency_ms": 9.960700000192446,
+      "status": "200"
+    },
+    {
+      "request": 258,
+      "latency_ms": 10.72840000006181,
+      "status": "200"
+    },
+    {
+      "request": 256,
+      "latency_ms": 13.347799999792187,
+      "status": "200"
+    },
+    {
+      "request": 255,
+      "latency_ms": 13.900300000386778,
+      "status": "200"
+    },
+    {
+      "request": 263,
+      "latency_ms": 9.911699999975099,
+      "status": "200"
+    },
+    {
+      "request": 262,
+      "latency_ms": 11.420999999700143,
+      "status": "200"
+    },
+    {
+      "request": 260,
+      "latency_ms": 13.286500000049273,
+      "status": "200"
+    },
+    {
+      "request": 265,
+      "latency_ms": 7.810100000369857,
+      "status": "200"
+    },
+    {
+      "request": 266,
+      "latency_ms": 7.5914999997621635,
+      "status": "200"
+    },
+    {
+      "request": 267,
+      "latency_ms": 8.074699999724544,
+      "status": "200"
+    },
+    {
+      "request": 268,
+      "latency_ms": 8.671600000070612,
+      "status": "200"
+    },
+    {
+      "request": 269,
+      "latency_ms": 8.442900000318332,
+      "status": "200"
+    },
+    {
+      "request": 270,
+      "latency_ms": 8.385500000258617,
+      "status": "200"
+    },
+    {
+      "request": 272,
+      "latency_ms": 7.855100000142556,
+      "status": "200"
+    },
+    {
+      "request": 273,
+      "latency_ms": 7.598099999995611,
+      "status": "200"
+    },
+    {
+      "request": 274,
+      "latency_ms": 7.0965999998406915,
+      "status": "200"
+    },
+    {
+      "request": 275,
+      "latency_ms": 6.682499999897118,
+      "status": "200"
+    },
+    {
+      "request": 276,
+      "latency_ms": 7.6393999997890205,
+      "status": "200"
+    },
+    {
+      "request": 264,
+      "latency_ms": 20.223199999691133,
+      "status": "200"
+    },
+    {
+      "request": 271,
+      "latency_ms": 14.985199999955512,
+      "status": "200"
+    },
+    {
+      "request": 277,
+      "latency_ms": 8.64980000005744,
+      "status": "200"
+    },
+    {
+      "request": 278,
+      "latency_ms": 10.741000000052736,
+      "status": "200"
+    },
+    {
+      "request": 282,
+      "latency_ms": 8.830000000216387,
+      "status": "200"
+    },
+    {
+      "request": 279,
+      "latency_ms": 10.564200000317214,
+      "status": "200"
+    },
+    {
+      "request": 280,
+      "latency_ms": 9.91070000009131,
+      "status": "200"
+    },
+    {
+      "request": 281,
+      "latency_ms": 10.2668999998059,
+      "status": "200"
+    },
+    {
+      "request": 283,
+      "latency_ms": 9.018299999752344,
+      "status": "200"
+    },
+    {
+      "request": 284,
+      "latency_ms": 7.037400000172056,
+      "status": "200"
+    },
+    {
+      "request": 286,
+      "latency_ms": 5.6162000000767875,
+      "status": "200"
+    },
+    {
+      "request": 285,
+      "latency_ms": 7.226199999877281,
+      "status": "200"
+    },
+    {
+      "request": 288,
+      "latency_ms": 4.771500000060769,
+      "status": "200"
+    },
+    {
+      "request": 289,
+      "latency_ms": 8.616999999958352,
+      "status": "200"
+    },
+    {
+      "request": 287,
+      "latency_ms": 13.205300000208808,
+      "status": "200"
+    },
+    {
+      "request": 292,
+      "latency_ms": 9.808199999952194,
+      "status": "200"
+    },
+    {
+      "request": 291,
+      "latency_ms": 10.837599999831582,
+      "status": "200"
+    },
+    {
+      "request": 293,
+      "latency_ms": 10.909099999935279,
+      "status": "200"
+    },
+    {
+      "request": 295,
+      "latency_ms": 9.716399999888381,
+      "status": "200"
+    },
+    {
+      "request": 290,
+      "latency_ms": 12.10880000007819,
+      "status": "200"
+    },
+    {
+      "request": 294,
+      "latency_ms": 11.23250000000553,
+      "status": "200"
+    },
+    {
+      "request": 297,
+      "latency_ms": 8.125199999994948,
+      "status": "200"
+    },
+    {
+      "request": 298,
+      "latency_ms": 4.951200000050449,
+      "status": "200"
+    },
+    {
+      "request": 299,
+      "latency_ms": 4.2659000000639935,
+      "status": "200"
+    },
+    {
+      "request": 296,
+      "latency_ms": 22.664699999950244,
+      "status": "200"
+    }
+  ]
+}
