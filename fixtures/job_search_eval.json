@@ -1,0 +1,28 @@
+{
+  "jobs": [
+    {"id":"j-backend","company":"Northstar","title":"Backend Engineer Intern","description":"Build Python API services, authentication flows, relational data models and reliable product endpoints.","location":"India","work_mode":"Remote","seniority":"Intern","required_skills":["Python","FastAPI","SQL"],"preferred_skills":["LLMs","Docker"]},
+    {"id":"j-rag","company":"Cedar Labs","title":"Applied AI Intern","description":"Build retrieval augmented generation pipelines, embeddings, document search and citation grounded language model features.","location":"Bengaluru","work_mode":"Hybrid","seniority":"Intern","required_skills":["Python","RAG","Embeddings"],"preferred_skills":["Evaluation","FastAPI"]},
+    {"id":"j-frontend","company":"Studio North","title":"Frontend Engineering Intern","description":"Create responsive React interfaces, accessible components and typed browser experiences.","location":"India","work_mode":"Remote","seniority":"Intern","required_skills":["React","TypeScript","CSS"],"preferred_skills":["Accessibility"]},
+    {"id":"j-data","company":"Metric Grove","title":"Data Engineering Intern","description":"Develop SQL warehouse models, data ingestion pipelines, quality checks and scheduled transformations.","location":"Gurugram","work_mode":"On-site","seniority":"Intern","required_skills":["SQL","Python","ETL"],"preferred_skills":["dbt","Airflow"]},
+    {"id":"j-qa","company":"ContractWorks","title":"QA Automation Intern","description":"Create API contract tests, regression suites, boundary checks and automated defect reports.","location":"India","work_mode":"Remote","seniority":"Intern","required_skills":["Python","Pytest","REST APIs"],"preferred_skills":["OpenAPI","CI"]},
+    {"id":"j-cloud","company":"Cloud Harbour","title":"Platform Engineering Intern","description":"Improve Docker based deployment workflows, cloud observability, service reliability and infrastructure automation.","location":"Pune","work_mode":"Hybrid","seniority":"Intern","required_skills":["Docker","Cloud","Linux"],"preferred_skills":["Terraform","Monitoring"]},
+    {"id":"j-ml","company":"Signal Foundry","title":"Machine Learning Intern","description":"Train and evaluate classification models, analyse features, track experiments and report model quality.","location":"India","work_mode":"Hybrid","seniority":"Intern","required_skills":["Python","PyTorch","Scikit-learn"],"preferred_skills":["Experiment Tracking"]},
+    {"id":"j-security","company":"Lockstep","title":"Application Security Intern","description":"Review web application security, authorization boundaries, secure APIs and vulnerability fixes.","location":"Bengaluru","work_mode":"On-site","seniority":"Intern","required_skills":["Python","OWASP","Security Testing"],"preferred_skills":["Threat Modeling"]}
+  ],
+  "cases": [
+    {"id":"backend-api","query":"Python backend APIs and database services","profile_id":"eval-backend","expected_job_id":"j-backend"},
+    {"id":"grounded-ai","query":"RAG, vector embeddings and citation based LLM search","profile_id":"eval-ai","expected_job_id":"j-rag"},
+    {"id":"react-ui","query":"React UI frontend components and TypeScript","profile_id":"eval-frontend","expected_job_id":"j-frontend"},
+    {"id":"warehouse","query":"SQL data warehouse ingestion and ETL pipeline","profile_id":"eval-data","expected_job_id":"j-data"},
+    {"id":"api-testing","query":"Automated API contract and regression testing","profile_id":"eval-qa","expected_job_id":"j-qa"},
+    {"id":"cloud-platform","query":"Docker cloud platform reliability and deployment automation","profile_id":"eval-cloud","expected_job_id":"j-cloud"}
+  ],
+  "profiles": {
+    "eval-backend":{"summary":"Software engineering internship","target_roles":["Backend Engineer Intern"],"skills":["Python","FastAPI","SQL"],"preferred_locations":["India"],"remote_ok":true},
+    "eval-ai":{"summary":"Applied AI engineering internship","target_roles":["Applied AI Intern"],"skills":["Python","RAG","Embeddings","FastAPI"],"preferred_locations":["India"],"remote_ok":true},
+    "eval-frontend":{"summary":"Frontend internship","target_roles":["Frontend Engineering Intern"],"skills":["React","TypeScript","CSS"],"preferred_locations":["India"],"remote_ok":true},
+    "eval-data":{"summary":"Data engineering internship","target_roles":["Data Engineering Intern"],"skills":["SQL","Python","ETL"],"preferred_locations":["Gurugram"],"remote_ok":true},
+    "eval-qa":{"summary":"QA automation internship","target_roles":["QA Automation Intern"],"skills":["Python","Pytest","REST APIs"],"preferred_locations":["India"],"remote_ok":true},
+    "eval-cloud":{"summary":"Platform engineering internship","target_roles":["Platform Engineering Intern"],"skills":["Docker","Cloud","Linux"],"preferred_locations":["Pune"],"remote_ok":true}
+  }
+}

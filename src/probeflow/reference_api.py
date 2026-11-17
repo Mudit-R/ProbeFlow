@@ -8,14 +8,16 @@ from __future__ import annotations
 import os
 import re
 import secrets
-import sqlite3
-from contextlib import contextmanager
 from pathlib import Path
 
 from defusedxml import ElementTree
 from defusedxml.common import DefusedXmlException
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from pydantic import BaseModel, Field
+
+from .career_agent import attach_agent_route, configured_planner
+from .job_matching import EmbeddingProvider, attach_job_routes, configured_embedder
+from .storage import connect
 
 DOCUMENTS = [
     ("retention", "Retention policy", "Clinical operations audit records are retained for seven years. Archived records remain read-only."),
@@ -50,18 +52,6 @@ class Answer(BaseModel):
     abstained: bool
 
 
-@contextmanager
-def connect(path: str):
-    db = sqlite3.connect(path, timeout=5)
-    db.row_factory = sqlite3.Row
-    db.execute("PRAGMA foreign_keys=ON")
-    try:
-        with db:
-            yield db
-    finally:
-        db.close()
-
-
 def initialize(path: str) -> None:
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     with connect(path) as db:
@@ -80,7 +70,8 @@ def initialize(path: str) -> None:
         db.executemany("INSERT OR IGNORE INTO invoices VALUES (?,?,?,?)", [("i1", "v1", 10000, 1), ("i2", "v1", 25000, 0), ("i3", "v2", 8000, 0)])
 
 
-def create_app(db_path: str | None = None, api_key: str | None = None) -> FastAPI:
+def create_app(db_path: str | None = None, api_key: str | None = None,
+               job_embedder: EmbeddingProvider | None = None) -> FastAPI:
     path = db_path or os.getenv("PROBEFLOW_DB", "artifacts/reference.db")
     key = api_key or os.environ.get("PROBEFLOW_API_KEY")
     if not key:
@@ -145,5 +136,8 @@ def create_app(db_path: str | None = None, api_key: str | None = None) -> FastAP
             """).fetchall()
         return {"vendors": [dict(row) for row in rows]}
 
+    embedder = job_embedder if job_embedder is not None else configured_embedder()
+    attach_job_routes(app, path, authorize, embedder)
+    attach_agent_route(app, path, authorize, embedder, configured_planner())
     return app
 

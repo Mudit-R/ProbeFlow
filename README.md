@@ -89,12 +89,45 @@ flowchart LR
 ## Scope and interpretation
 
 The reference answer service returns retrieved document excerpts. It does not
-call an LLM or perform dense/vector retrieval. The LLM is an optional investigation
-planner, not the reference answer generator. Benchmark results include the local
-HTTP/SQLite path and exclude model inference. Results on six synthetic policy
-documents and twenty questions are fixture checks, not evidence of general RAG
-accuracy, real healthcare deployment or production scale. Citation validity
-checks document identifiers; it does not establish semantic entailment.
+call an LLM or perform dense/vector retrieval. The original defect-investigation
+LLM is an optional planner; the new job-search planner is separately bounded to
+one typed plan and one allowlisted retrieval tool. Benchmark results include the
+local HTTP/SQLite path and exclude model inference. Results on six synthetic
+policy documents and twenty questions are fixture checks, not evidence of
+general RAG accuracy, real healthcare deployment or production scale. Citation
+validity checks document identifiers; it does not establish semantic entailment.
+
+## Candidate job search extension
+
+ProbeFlow also includes a job-search vertical built on the same API and
+evaluation approach. It stores jobs by stable ID, updates the FTS5 index in the
+same operation, keeps an explicit candidate profile (roles, skills, locations,
+and remote preference), and returns ranked results with score explanations.
+When an embedding provider is configured, retrieval combines its vectors with
+FTS5 BM25 ranking and profile-based skill, role, and location signals. Without
+an embedding service, the API reports lexical/profile ranking instead of
+pretending that semantic retrieval ran.
+
+The optional Ollama adapters provide embeddings and structured search planning.
+The LangGraph flow reads the saved profile, lets the model produce one typed
+plan, and exposes only one allowlisted read-only `search_jobs` tool. Search
+results come from indexed postings, and the returned summary is deterministic.
+The local Ollama model must be installed separately. The API does not download
+models or send profile data to a hosted provider.
+
+Run the synthetic labelled retrieval evaluation with:
+
+```powershell
+& .\.venv\Scripts\python.exe scripts/evaluate_job_search.py
+```
+
+To enable vector retrieval and natural-language planning, install and start
+Ollama, pull an embedding model and a JSON-schema-capable chat model, then set
+`PROBEFLOW_EMBEDDING_MODEL`, `PROBEFLOW_AGENT_MODEL`, and optionally
+`PROBEFLOW_OLLAMA_URL` before starting the API. Re-upsert jobs after changing
+the embedding model so all records share one vector space. The checked-in
+evaluation dataset is synthetic and small; its scores are regression signals,
+not evidence of marketplace quality, fairness, or user outcomes.
 
 Docker and CI configuration are included. No cloud deployment, hosted CI result,
 professional certification, production customer adoption or clinical capability
@@ -107,7 +140,7 @@ is claimed.
 | Pytest, including the HTTP API and schema generated checks | 56 passed | `artifacts/pytest.xml` |
 | JSON contract suite against the running server | 20/20 passed | `artifacts/contracts.json` |
 | Newman/Postman collection | 20 requests, 36 assertions, zero failures | `artifacts/newman-summary.json`, `artifacts/newman.xml` |
-| Schemathesis against 3 safe OpenAPI operations | 141 generated cases, 141 passed, 0 failures in a 30 second run | `artifacts/schemathesis-result.json` |
+| Schemathesis against 3 safe OpenAPI operations | 141 generated cases, 141 passed, 0 failures in a 30 second run | `artifacts/schemathesis-result.json`, JUnit and offline HTML paths inside the file |
 | Retrieval fixtures | 15 answerable and 5 unanswerable queries; raw responses retained | `artifacts/retrieval.json` |
 | Concurrent HTTP measurement | 300 requests, 10 concurrent clients; 300 HTTP 200 responses | `artifacts/benchmark.json` |
 
