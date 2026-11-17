@@ -11,7 +11,7 @@ import math
 import os
 import re
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Literal, Protocol
 
 import httpx
 from fastapi import Depends, HTTPException
@@ -22,6 +22,10 @@ from .storage import connect
 
 class EmbeddingProvider(Protocol):
     def embed(self, text: str) -> list[float]: ...
+
+
+class RetrievalModeUnavailable(ValueError):
+    """Raised when an explicitly requested retrieval mode cannot run."""
 
 
 class OllamaEmbedder:
@@ -79,10 +83,24 @@ class JobSearch(BaseModel):
     location: str | None = Field(default=None, max_length=160)
     work_mode: str | None = Field(default=None, max_length=40)
     top_k: int = Field(default=5, ge=1, le=20)
+    # `default` preserves the original hybrid-if-configured, lexical/profile otherwise behavior.
+    ranking_mode: Literal["default", "bm25_only", "embeddings_only", "hybrid"] = "default"
+    ablate_signal: Literal["embedding", "bm25", "token_overlap", "skill_overlap", "role_alignment", "location_preference"] | None = None
 
 
 def _tokens(text: str) -> set[str]:
     return {t for t in re.findall(r"[a-z0-9+#.]+", text.casefold()) if len(t) > 1}
+
+
+def _skill_mentioned(skill: str, text: str) -> bool:
+    """Check for a profile skill in posting text without labeling it required."""
+    normalized = skill.strip().casefold()
+    source = text.casefold()
+    if not normalized:
+        return False
+    if len(normalized) <= 2:
+        return re.search(r"(?<![a-z0-9])" + re.escape(normalized) + r"(?![a-z0-9])", source) is not None
+    return normalized in source
 
 
 def _cosine(left: list[float], right: list[float]) -> float:
@@ -166,15 +184,31 @@ def upsert_profile(path: str, profile_id: str, profile: CandidateProfile) -> dic
 def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | None) -> dict:
     with connect(path) as db:
         profile = _profile_row(db, request.profile_id)
-        rows = db.execute("SELECT * FROM job_postings ORDER BY id").fetchall()
+        has_ingested_jobs = db.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='ingested_jobs'"
+        ).fetchone() is not None
+        if has_ingested_jobs:
+            rows = db.execute("""SELECT j.*, i.source, i.source_url, i.canonical_url
+              FROM job_postings j LEFT JOIN ingested_jobs i ON i.job_id=j.id
+              WHERE i.job_id IS NULL OR (i.is_stale=0 AND i.is_expired=0
+                AND (i.expires_at IS NULL OR datetime(i.expires_at)>CURRENT_TIMESTAMP))
+              ORDER BY j.id""").fetchall()
+        else:
+            rows = db.execute("SELECT *, NULL AS source, NULL AS source_url, NULL AS canonical_url FROM job_postings ORDER BY id").fetchall()
         search_tokens = sorted(_tokens(request.query))
         fts_ranks: dict[str, int] = {}
         if search_tokens:
             expression = " OR ".join('"' + token.replace('"', '""') + '"' for token in search_tokens)
             matches = db.execute("SELECT id FROM job_postings_fts WHERE job_postings_fts MATCH ? ORDER BY bm25(job_postings_fts), id", (expression,)).fetchall()
-            fts_ranks = {row["id"]: rank for rank, row in enumerate(matches, start=1)}
+            active_ids = {row["id"] for row in rows}
+            fts_ranks = {row["id"]: rank for rank, row in enumerate(
+                (item for item in matches if item["id"] in active_ids), start=1)}
     if not rows:
-        return {"results": [], "embedding_search": embedder is not None, "profile_used": request.profile_id}
+        return {"results": [], "embedding_search": False, "profile_used": request.profile_id,
+                "ranking": request.ranking_mode}
+
+    if request.ablate_signal and request.ranking_mode != "hybrid":
+        raise ValueError("Signal ablation is supported only for hybrid ranking")
 
     profile_text = ""
     profile_skills: set[str] = set()
@@ -188,9 +222,17 @@ def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | Non
         profile_roles = _tokens(" ".join(profile["target_roles"]))
         preferred_locations = [x.casefold() for x in profile["preferred_locations"]]
     query = request.query
-    query_vector = embedder.embed(" ".join([query, profile_text])) if embedder else None
+    needs_embeddings = request.ranking_mode in {"default", "embeddings_only", "hybrid"} and request.ablate_signal != "embedding"
+    query_vector = embedder.embed(" ".join([query, profile_text])) if embedder and needs_embeddings else None
     has_vectors = any(row["embedding"] for row in rows)
     embedding_enabled = bool(query_vector and has_vectors)
+    requires_embedding = request.ranking_mode == "embeddings_only" or (
+        request.ranking_mode == "hybrid" and request.ablate_signal != "embedding"
+    )
+    if requires_embedding and not embedding_enabled:
+        raise RetrievalModeUnavailable(
+            f"{request.ranking_mode} requires an embedding provider and indexed job vectors"
+        )
     role_context = profile["target_roles"] if profile else []
     query_tokens = _tokens(" ".join([query, *role_context]))
     candidates = []
@@ -202,6 +244,8 @@ def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | Non
         job_skills_list = json.loads(row["required_skills"]) + json.loads(row["preferred_skills"])
         job_skill_keys = {s.casefold() for s in job_skills_list}
         job_tokens = _tokens(" ".join([row["title"], row["company"], row["description"], row["location"], row["seniority"], *job_skills_list]))
+        posting_text = " ".join([row["title"], row["description"]])
+        job_skill_keys.update(skill for skill in profile_skills if _skill_mentioned(skill, posting_text))
         token_overlap = len(query_tokens & job_tokens) / max(1, len(query_tokens))
         fts_rank = fts_ranks.get(row["id"])
         bm25_rank_score = 1.0 / fts_rank if fts_rank else 0.0
@@ -215,22 +259,53 @@ def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | Non
         stored_vector = json.loads(row["embedding"]) if row["embedding"] else None
         cosine = _cosine(query_vector, stored_vector) if query_vector and stored_vector else 0.0
         dense = (cosine + 1) / 2 if query_vector and stored_vector else 0.0
-        if query_vector and stored_vector:
+        if request.ranking_mode == "bm25_only":
+            total = bm25_rank_score
+        elif request.ranking_mode == "embeddings_only":
+            total = dense
+        elif request.ranking_mode == "hybrid":
+            # Splitting lexical's existing 0.25 weight evenly keeps the hybrid
+            # score identical while allowing BM25 and token overlap ablations.
+            weights = {"embedding": 0.35, "bm25": 0.125, "token_overlap": 0.125,
+                       "skill_overlap": 0.25, "role_alignment": 0.10,
+                       "location_preference": 0.05}
+            if request.ablate_signal:
+                weights.pop(request.ablate_signal)
+            components = {"embedding": dense, "bm25": bm25_rank_score,
+                          "token_overlap": token_overlap, "skill_overlap": skill_score,
+                          "role_alignment": role_score, "location_preference": location_score}
+            denominator = sum(weights.values())
+            total = sum(weights[key] * components[key] for key in weights) / denominator
+        elif query_vector and stored_vector:
+            # Preserve the original default score exactly for existing callers.
             total = 0.35 * dense + 0.25 * lexical + 0.25 * skill_score + 0.10 * role_score + 0.05 * location_score
         else:
+            # Preserve the original no-embedding default score exactly.
             total = 0.40 * lexical + 0.40 * skill_score + 0.15 * role_score + 0.05 * location_score
         matched_skills = sorted(profile_skill_labels[key] for key in profile_skills & job_skill_keys)
         candidates.append({"id": row["id"], "company": row["company"], "title": row["title"],
             "location": row["location"], "work_mode": row["work_mode"], "seniority": row["seniority"],
+            "source": row["source"], "source_url": row["source_url"],
             "description": row["description"], "required_skills": json.loads(row["required_skills"]),
             "preferred_skills": json.loads(row["preferred_skills"]), "score": round(total, 6),
             "score_breakdown": {"embedding": round(dense, 6), "lexical": round(lexical, 6),
+                "bm25": round(bm25_rank_score, 6), "token_overlap": round(token_overlap, 6),
                 "skill_overlap": round(skill_score, 6), "role_alignment": round(role_score, 6),
                 "location_preference": round(location_score, 6)},
             "matched_profile_skills": matched_skills})
     candidates.sort(key=lambda item: (-item["score"], item["id"]))
+    if request.ranking_mode == "default":
+        ranking = "hybrid_embedding_bm25_profile_v1" if embedding_enabled else "lexical_profile_v1"
+    elif request.ranking_mode == "bm25_only":
+        ranking = "bm25_only_v1"
+    elif request.ranking_mode == "embeddings_only":
+        ranking = "embeddings_only_v1"
+    else:
+        ranking = "hybrid_embedding_bm25_profile_v1"
+        if request.ablate_signal:
+            ranking += f"_without_{request.ablate_signal}"
     return {"results": candidates[:request.top_k], "embedding_search": embedding_enabled,
-            "profile_used": request.profile_id, "ranking": "hybrid_embedding_bm25_profile_v1" if embedding_enabled else "lexical_profile_v1"}
+            "profile_used": request.profile_id, "ranking": ranking}
 
 
 def attach_job_routes(app, path: str, api_key_dependency, embedder: EmbeddingProvider | None = None) -> None:
@@ -254,3 +329,6 @@ def attach_job_routes(app, path: str, api_key_dependency, embedder: EmbeddingPro
             return search_jobs(path, search, embedder)
         except RuntimeError as exc:
             raise HTTPException(503, str(exc)) from exc
+        except RetrievalModeUnavailable as exc:
+            raise HTTPException(422, str(exc)) from exc
+

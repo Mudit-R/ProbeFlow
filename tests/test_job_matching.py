@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from probeflow.career_agent import SearchPlan, run_job_search_agent
 from probeflow.job_matching import CandidateProfile, JobPosting, JobSearch
+from probeflow.job_matching import RetrievalModeUnavailable, search_jobs
+from probeflow.job_evaluation import _metrics, evaluate_job_search
 from probeflow.career_agent import AgentSearchRequest
 from probeflow.reference_api import create_app
 from probeflow.storage import connect
@@ -56,7 +58,9 @@ def test_profile_memory_hybrid_rank_and_explanations(tmp_path):
     assert payload["embedding_search"] is False
     assert payload["results"][0]["id"] == "backend-1"
     assert payload["results"][0]["matched_profile_skills"] == ["FastAPI", "Python", "SQL"]
-    assert set(payload["results"][0]["score_breakdown"]) == {"embedding", "lexical", "skill_overlap", "role_alignment", "location_preference"}
+    assert set(payload["results"][0]["score_breakdown"]) == {
+        "embedding", "lexical", "bm25", "token_overlap", "skill_overlap",
+        "role_alignment", "location_preference"}
 
 
 def test_upsert_updates_job_and_searchable_text_without_duplicates(tmp_path):
@@ -104,12 +108,71 @@ def test_embedding_provider_changes_ranking_and_upserts_refresh_vectors(tmp_path
         assert row["embedding"] is not None
 
 
+def test_explicit_bm25_embedding_hybrid_and_signal_ablation_modes(tmp_path):
+    app, db_path = setup_app(tmp_path, SemanticStub())
+    insert_fixtures(app)
+    profile = CandidateProfile(target_roles=["Backend Engineer Intern"],
+                               skills=["Python", "FastAPI"], preferred_locations=["India"])
+    route_endpoint(app, "/v1/profiles/{profile_id}")("modes", profile)
+
+    bm25 = search_jobs(db_path, JobSearch(query="Python API services", profile_id="modes",
+                                          ranking_mode="bm25_only"), SemanticStub())
+    embeddings = search_jobs(db_path, JobSearch(query="Python API services", profile_id="modes",
+                                                ranking_mode="embeddings_only"), SemanticStub())
+    hybrid = search_jobs(db_path, JobSearch(query="Python API services", profile_id="modes",
+                                             ranking_mode="hybrid"), SemanticStub())
+    without_embedding = search_jobs(db_path, JobSearch(query="Python API services", profile_id="modes",
+                                                        ranking_mode="hybrid", ablate_signal="embedding"), SemanticStub())
+
+    assert bm25["ranking"] == "bm25_only_v1"
+    assert embeddings["ranking"] == "embeddings_only_v1"
+    assert hybrid["ranking"] == "hybrid_embedding_bm25_profile_v1"
+    assert without_embedding["ranking"].endswith("_without_embedding")
+    assert all(result["results"][0]["id"] == "backend-1"
+               for result in (bm25, embeddings, hybrid, without_embedding))
+
+
+def test_embedding_mode_fails_explicitly_when_vectors_are_unavailable(tmp_path):
+    app, db_path = setup_app(tmp_path)
+    insert_fixtures(app)
+    try:
+        search_jobs(db_path, JobSearch(query="Python APIs", ranking_mode="embeddings_only"), None)
+    except RetrievalModeUnavailable as exc:
+        assert "requires an embedding provider" in str(exc)
+    else:
+        raise AssertionError("embedding-only mode silently ran without indexed vectors")
+
+
+def test_evaluation_reports_standard_metrics_modes_and_ablations(tmp_path):
+    app, db_path = setup_app(tmp_path, SemanticStub())
+    insert_fixtures(app)
+    cases = [{"id": "python-api", "query": "Python API services",
+              "relevance": {"backend-1": 3, "frontend-1": 1}}]
+    report = evaluate_job_search(db_path, cases, SemanticStub(), cutoff=2,
+                                 ranking_modes=["bm25_only", "embeddings_only", "hybrid"],
+                                 include_ablations=True)
+
+    assert len(report["runs"]) == 9
+    assert all(row["status"] == "ok" for row in report["runs"])
+    assert all({"recall_at_k", "mrr_at_k", "ndcg_at_k"} <= row.keys() for row in report["runs"])
+    assert "Hybrid without location preference" in report["table"]
+    assert "Recall@k" in report["table"]
+
+
+def test_standard_recall_mrr_and_graded_ndcg():
+    metrics = _metrics(["lower", "higher"], {"higher": 3, "lower": 1}, 2)
+    assert metrics["recall_at_k"] == 1.0
+    assert metrics["mrr_at_k"] == 1.0
+    assert round(metrics["ndcg_at_k"], 4) == 0.7098
+
+
 def test_agent_uses_saved_profile_and_one_allowlisted_search_tool(tmp_path):
     app, db_path = setup_app(tmp_path)
     insert_fixtures(app)
     route_endpoint(app, "/v1/profiles/{profile_id}")("candidate-agent", CandidateProfile(summary="ICT student", target_roles=["Backend Engineer Intern"], skills=["Python", "FastAPI"], preferred_locations=["India"], remote_ok=True))
     planner = PlannerStub()
-    result = run_job_search_agent(db_path, "Find AI backend internships", "candidate-agent", planner, None)
+    result = run_job_search_agent(db_path, "Find AI backend internships", "candidate-agent", planner, None,
+                                  max_tool_calls=1)
     assert planner.profile["skills"] == ["Python", "FastAPI"]
     assert result["tool_calls"] == 1
     assert result["results"]["results"][0]["id"] == "backend-1"
@@ -126,3 +189,4 @@ def test_agent_endpoint_requires_explicit_local_model(tmp_path):
         assert isinstance(exc, HTTPException) and exc.status_code == 503
     else:
         raise AssertionError("agent unexpectedly ran without configured planner")
+

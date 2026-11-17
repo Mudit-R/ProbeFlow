@@ -1,5 +1,42 @@
 # ProbeFlow
 
+> **Career-search extension under development.** Public Lever feed ingestion, profile
+> extraction, multi-tool conversation memory, and comparative evaluation are available
+> locally. No scheduled ingestion, deployed persistent index, or verified live Ollama
+> run is included in this release. The API requires one shared key and is intended for
+> a private/local demo, not multi-user production use.
+
+## Career-search extension quickstart
+
+Set `PROBEFLOW_API_KEY` and launch the reference API as below. To ingest a curated
+set of public Lever boards, set `PROBEFLOW_LEVER_BOARDS` to a JSON array such as
+`[{"site":"example","company":"Example","region":"global"}]` and send an
+authenticated POST to `/v1/internal/ingest`. The endpoint uses only read-only
+published Lever postings. Configure your own scheduler to call it periodically.
+`/v1/ingestion/health` reports attempts and active source records. A complete
+successful fetch is required before missing jobs are marked stale. Search returns
+source links, and filters stale records. Ingestion is lexical until an embedding
+indexing pipeline is configured separately.
+
+For resume extraction set `PROBEFLOW_RESUME_MODEL` to a locally installed Ollama
+model and send resume text to `/v1/resume/match` with the API key. The raw text is
+not saved, but the extracted candidate profile is stored in SQLite. For agent
+planning set `PROBEFLOW_AGENT_MODEL` and call `/v1/jobs/agent-search`. Conversation
+history and tool responses are stored locally. Protect the database and API key.
+The agent has bounded read-only search, detail, and comparison tools.
+
+Run `python scripts/evaluate_job_search.py` for BM25, embedding, hybrid, and
+ablation tables. The included six-query fixture is synthetic. Embedding rows
+are marked unavailable unless an Ollama embedding model is configured. Run
+`python scripts/evaluate_agent_judge.py` after setting `PROBEFLOW_JUDGE_MODEL`
+and starting Ollama to compare judge outputs against 20 author-curated synthetic
+examples. This is not a human-subject or real-user quality study.
+
+The existing Dockerfile runs the API with SQLite. Vercel's ephemeral filesystem
+is not durable storage for postings or conversations. A managed database,
+authentication, model hosting, and a protected scheduler are needed before a
+public deployment can provide persistent multi-user service.
+
 Python API quality workbench for OpenAPI driven fuzzing, contract tests,
 retrieval evaluation, SQL reconciliation and bounded LLM assisted investigation.
 Built as a local portfolio project on November 1, 2026. All reference data is
@@ -109,9 +146,9 @@ an embedding service, the API reports lexical/profile ranking instead of
 pretending that semantic retrieval ran.
 
 The optional Ollama adapters provide embeddings and structured search planning.
-The LangGraph flow reads the saved profile, lets the model produce one typed
-plan, and exposes only one allowlisted read-only `search_jobs` tool. Search
-results come from indexed postings, and the returned summary is deterministic.
+The LangGraph flow reads the saved profile and exposes three allowlisted
+read-only tools: search, details, and comparison. Search results come from
+indexed postings, and the returned summary is deterministic.
 The local Ollama model must be installed separately. The API does not download
 models or send profile data to a hosted provider.
 
@@ -163,4 +200,5 @@ or model diagnosis-quality result is reported.
 Open source components are installed as dependencies and credited in
 `THIRD_PARTY_NOTICES.md`. Schemathesis is MIT licensed; its API test runner is
 integrated with upstream attribution preserved.
+
 

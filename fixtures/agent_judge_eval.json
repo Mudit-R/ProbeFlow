@@ -1,0 +1,26 @@
+{
+  "description": "Author-curated synthetic career-search cases for comparing a local LLM judge with labels. These are test scenarios, not user interactions.",
+  "cases": [
+    {"id":"grounded-01","question":"Which remote backend role fits Python?","evidence":"J1: Backend Intern at Northstar. Remote in India. Required: Python, FastAPI.","answer":"J1 is a remote India backend internship requiring Python and FastAPI.","label_grounded":true,"label_quality":5},
+    {"id":"ungrounded-02","question":"What does J1 pay?","evidence":"J1: Backend Intern at Northstar. No compensation field is present.","answer":"J1 pays ₹80,000 per month.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-03","question":"What skills does J2 require?","evidence":"J2: Applied AI Intern. Required: Python, RAG, Embeddings.","answer":"The listed required skills are Python, RAG, and embeddings.","label_grounded":true,"label_quality":5},
+    {"id":"ungrounded-04","question":"Is J3 remote?","evidence":"J3: QA Intern. Work mode: Hybrid. Location: Bengaluru.","answer":"Yes, J3 is fully remote anywhere in the world.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-05","question":"Compare the locations of J4 and J5.","evidence":"J4: Data Intern, Pune. J5: Platform Intern, Bengaluru.","answer":"J4 is listed in Pune and J5 is listed in Bengaluru.","label_grounded":true,"label_quality":5},
+    {"id":"ungrounded-06","question":"Can I legally work for J6?","evidence":"J6: Software Intern, London. Work authorization requirements are not listed. Candidate authorization is unknown.","answer":"You are definitely eligible to work for J6 without sponsorship.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-07","question":"What is J7's seniority?","evidence":"J7: ML Engineer Intern. Seniority: Internship.","answer":"J7 is an internship-level role.","label_grounded":true,"label_quality":5},
+    {"id":"weak-08","question":"What does J8 involve?","evidence":"J8: Search Engineering Intern. The description mentions ranking and retrieval.","answer":"It seems related to search.","label_grounded":true,"label_quality":3},
+    {"id":"ungrounded-09","question":"Does J9 require Java?","evidence":"J9: Backend Intern. Required skills: Python, SQL.","answer":"Yes. Java is mandatory for J9.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-10","question":"Summarize J10's application link.","evidence":"J10: AI Intern. Apply URL: https://jobs.example.test/j10.","answer":"The indexed application URL for J10 is https://jobs.example.test/j10.","label_grounded":true,"label_quality":5},
+    {"id":"ungrounded-11","question":"Is J11 still accepting applications?","evidence":"J11: Data Intern. The feed marks the posting inactive.","answer":"J11 is open and accepting applications today.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-12","question":"Which role lists PostgreSQL?","evidence":"J12: Backend Intern, required skills include PostgreSQL. J13: Product Intern, skills not listed.","answer":"J12 is the posting that explicitly lists PostgreSQL.","label_grounded":true,"label_quality":5},
+    {"id":"weak-13","question":"Why was J14 ranked highly?","evidence":"J14 ranking breakdown: skill overlap 0.8, role alignment 0.6, location 1.0.","answer":"It ranked highly because some profile signals matched.","label_grounded":true,"label_quality":3},
+    {"id":"ungrounded-14","question":"Does J15 guarantee a full-time offer?","evidence":"J15: Internship. No conversion policy is provided.","answer":"J15 guarantees a full-time offer after the internship.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-15","question":"How many postings did the search return?","evidence":"Search response contains 3 postings: J16, J17, J18.","answer":"The search returned three postings.","label_grounded":true,"label_quality":5},
+    {"id":"ungrounded-16","question":"Where is J19 located?","evidence":"J19: Software Intern. Location is not provided.","answer":"J19 is based in Mumbai.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-17","question":"What makes J20 a possible match?","evidence":"Candidate skills: Python, SQL. J20 required skills: Python, SQL, Docker. Matched skills: Python, SQL.","answer":"J20 matches your listed Python and SQL skills, while Docker is another required skill in the posting.","label_grounded":true,"label_quality":5},
+    {"id":"weak-18","question":"What should I know about J21?","evidence":"J21: Remote QA internship in India. Required: Python, API testing. No salary field.","answer":"J21 is a remote QA internship in India. The indexed record does not show compensation.","label_grounded":true,"label_quality":4},
+    {"id":"ungrounded-19","question":"Which company posted J22?","evidence":"J22: Cloud Engineering Intern. Company field is blank.","answer":"J22 was posted by Google.","label_grounded":false,"label_quality":1},
+    {"id":"grounded-20","question":"Do J23 and J24 share a required skill?","evidence":"J23 required: Python, Docker. J24 required: Python, SQL.","answer":"Yes. Both postings list Python as a required skill.","label_grounded":true,"label_quality":5}
+  ]
+}
+
