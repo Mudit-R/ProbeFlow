@@ -83,7 +83,7 @@ class JobSearch(BaseModel):
     location: str | None = Field(default=None, max_length=160)
     work_mode: str | None = Field(default=None, max_length=40)
     top_k: int = Field(default=5, ge=1, le=20)
-    # `default` preserves the original hybrid-if-configured, lexical/profile otherwise behavior.
+    # `default` uses profile-aware weights and hybrid retrieval when available.
     ranking_mode: Literal["default", "bm25_only", "embeddings_only", "hybrid"] = "default"
     ablate_signal: Literal["embedding", "bm25", "token_overlap", "skill_overlap", "role_alignment", "location_preference"] | None = None
 
@@ -135,6 +135,9 @@ def initialize_jobs(path: str) -> None:
           remote_ok INTEGER NOT NULL CHECK(remote_ok IN (0,1)), updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
         """)
+        columns = {row["name"] for row in db.execute("PRAGMA table_info(job_postings)")}
+        if "embedding_model" not in columns:
+            db.execute("ALTER TABLE job_postings ADD COLUMN embedding_model TEXT")
 
 
 def _profile_row(db, profile_id: str | None) -> dict | None:
@@ -151,21 +154,39 @@ def _profile_row(db, profile_id: str | None) -> dict | None:
 def upsert_job(path: str, job_id: str, job: JobPosting, embedder: EmbeddingProvider | None) -> dict:
     if not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", job_id):
         raise HTTPException(422, "Invalid job id")
-    vector = embedder.embed(_job_text(job)) if embedder else None
+    text = _job_text(job)
+    model_id = (f"{type(embedder).__module__}.{type(embedder).__qualname__}:"
+                f"{getattr(embedder, 'model', '')}") if embedder else None
+    with connect(path) as db:
+        previous = db.execute("SELECT * FROM job_postings WHERE id=?", (job_id,)).fetchone()
+    old_job = JobPosting(company=previous["company"], title=previous["title"],
+        description=previous["description"], location=previous["location"],
+        work_mode=previous["work_mode"], seniority=previous["seniority"],
+        required_skills=json.loads(previous["required_skills"]),
+        preferred_skills=json.loads(previous["preferred_skills"])) if previous else None
+    same_text = old_job is not None and _job_text(old_job) == text
+    reusable = bool(same_text and previous["embedding"] and
+                    (embedder is None or previous["embedding_model"] == model_id))
+    if reusable:
+        vector = json.loads(previous["embedding"])
+        model_id = previous["embedding_model"]
+    else:
+        vector = embedder.embed(text) if embedder else None
     skills = list(dict.fromkeys([*job.required_skills, *job.preferred_skills]))
     with connect(path) as db:
-        db.execute("""INSERT INTO job_postings(id,company,title,description,location,work_mode,seniority,required_skills,preferred_skills,embedding,updated_at)
-          VALUES(?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)
+        db.execute("""INSERT INTO job_postings(id,company,title,description,location,work_mode,seniority,required_skills,preferred_skills,embedding,embedding_model,updated_at)
+          VALUES(?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP)
           ON CONFLICT(id) DO UPDATE SET company=excluded.company,title=excluded.title,description=excluded.description,
           location=excluded.location,work_mode=excluded.work_mode,seniority=excluded.seniority,
           required_skills=excluded.required_skills,preferred_skills=excluded.preferred_skills,
-          embedding=excluded.embedding,updated_at=CURRENT_TIMESTAMP""",
+          embedding=excluded.embedding,embedding_model=excluded.embedding_model,updated_at=CURRENT_TIMESTAMP""",
           (job_id, job.company, job.title, job.description, job.location, job.work_mode, job.seniority,
-           json.dumps(job.required_skills), json.dumps(job.preferred_skills), json.dumps(vector) if vector else None))
+           json.dumps(job.required_skills), json.dumps(job.preferred_skills), json.dumps(vector) if vector else None, model_id))
         db.execute("DELETE FROM job_postings_fts WHERE id=?", (job_id,))
         db.execute("INSERT INTO job_postings_fts VALUES(?,?,?,?,?,?,?)",
                    (job_id, job.company, job.title, job.description, job.location, job.seniority, " ".join(skills)))
-    return {"id": job_id, "stored": True, "embedding_indexed": vector is not None}
+    return {"id": job_id, "stored": True, "embedding_indexed": vector is not None,
+            "embedding_reused": reusable}
 
 
 def upsert_profile(path: str, profile_id: str, profile: CandidateProfile) -> dict:
@@ -277,8 +298,9 @@ def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | Non
             denominator = sum(weights.values())
             total = sum(weights[key] * components[key] for key in weights) / denominator
         elif query_vector and stored_vector:
-            # Preserve the original default score exactly for existing callers.
-            total = 0.35 * dense + 0.25 * lexical + 0.25 * skill_score + 0.10 * role_score + 0.05 * location_score
+            # Give the candidate's target role greater weight than partial skill
+            # mentions. The explicitly requested hybrid benchmark is unchanged.
+            total = 0.35 * dense + 0.25 * lexical + 0.15 * skill_score + 0.20 * role_score + 0.05 * location_score
         else:
             # Preserve the original no-embedding default score exactly.
             total = 0.40 * lexical + 0.40 * skill_score + 0.15 * role_score + 0.05 * location_score
@@ -295,7 +317,7 @@ def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | Non
             "matched_profile_skills": matched_skills})
     candidates.sort(key=lambda item: (-item["score"], item["id"]))
     if request.ranking_mode == "default":
-        ranking = "hybrid_embedding_bm25_profile_v1" if embedding_enabled else "lexical_profile_v1"
+        ranking = "hybrid_embedding_bm25_profile_v2" if embedding_enabled else "lexical_profile_v1"
     elif request.ranking_mode == "bm25_only":
         ranking = "bm25_only_v1"
     elif request.ranking_mode == "embeddings_only":
@@ -304,7 +326,10 @@ def search_jobs(path: str, request: JobSearch, embedder: EmbeddingProvider | Non
         ranking = "hybrid_embedding_bm25_profile_v1"
         if request.ablate_signal:
             ranking += f"_without_{request.ablate_signal}"
+    vector_count = sum(1 for row in rows if row["embedding"])
     return {"results": candidates[:request.top_k], "embedding_search": embedding_enabled,
+            "embedding_coverage": {"indexed": vector_count, "total": len(rows),
+                                   "complete": vector_count == len(rows)},
             "profile_used": request.profile_id, "ranking": ranking}
 
 

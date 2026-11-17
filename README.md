@@ -2,8 +2,8 @@
 
 > **Career-search extension under development.** Public Lever feed ingestion, profile
 > extraction, multi-tool conversation memory, and comparative evaluation are available
-> locally. No scheduled ingestion, deployed persistent index, or verified live Ollama
-> run is included in this release. The API requires one shared key and is intended for
+> locally. A live local Ollama agent run is documented below. There is no deployed
+> persistent index or hosted scheduler. The API requires one shared key and is intended for
 > a private/local demo, not multi-user production use.
 
 ## Career-search extension quickstart
@@ -40,8 +40,26 @@ authenticated POST to `/v1/internal/ingest`. The endpoint uses only read-only
 published Lever postings. Configure your own scheduler to call it periodically.
 `/v1/ingestion/health` reports attempts and active source records. A complete
 successful fetch is required before missing jobs are marked stale. Search returns
-source links, and filters stale records. Ingestion is lexical until an embedding
-indexing pipeline is configured separately.
+source links and filters stale records. If `PROBEFLOW_EMBEDDING_MODEL` is configured,
+refreshes index embeddings and reuse vectors for unchanged content and model.
+Failed embedding calls leave the posting searchable lexically and are counted
+in the refresh response so a later run can retry them. Search reports vector coverage.
+
+To refresh without an HTTP request, run `python scripts/refresh_job_index.py`.
+Add `--interval-seconds 3600` to repeat while the process runs. It stops when
+the process exits and should be supervised by a service manager for unattended
+operation. The program does not install a scheduler or run automatically.
+
+`python scripts/verify_live_career.py` fetches the public Weekday Lever board,
+indexes it with the local `nomic-embed-text` model, and runs two turns through
+the local `qwen2.5:1.5b` planner. It checks search, source links, the requested
+follow-up detail, and retained conversation/tool records using synthetic candidate
+data. Models must already be installed in Ollama. Feed availability and counts
+change. The run writes local evidence to `artifacts/live_career_verification.json`.
+On 17 November 2026 a local run indexed 51 postings, returned a software intern
+as the top result for a synthetic candidate profile, and retrieved that posting
+in the follow-up. See `evaluation/live_career_summary.json` for the recorded
+counts and model names. This is one run, not a measure of general relevance.
 
 For resume extraction set `PROBEFLOW_RESUME_MODEL` to a locally installed Ollama
 model and send resume text to `/v1/resume/match` with the API key. The raw text is
@@ -152,8 +170,8 @@ flowchart LR
 
 The reference answer service returns retrieved document excerpts. It does not
 call an LLM or perform dense/vector retrieval. The original defect-investigation
-LLM is an optional planner; the new job-search planner is separately bounded to
-one typed plan and one allowlisted retrieval tool. Benchmark results include the
+LLM is an optional planner; the job-search planner is separately bounded to
+typed plans and three allowlisted read-only tools. Benchmark results include the
 local HTTP/SQLite path and exclude model inference. Results on six synthetic
 policy documents and twenty questions are fixture checks, not evidence of
 general RAG accuracy, real healthcare deployment or production scale. Citation
@@ -191,7 +209,7 @@ the embedding model so all records share one vector space. The checked-in
 evaluation dataset is synthetic and small; its scores are regression signals,
 not evidence of marketplace quality, fairness, or user outcomes.
 
-Docker and CI configuration are included. No cloud deployment, hosted CI result,
+Docker and CI configuration are included. No cloud deployment,
 professional certification, production customer adoption or clinical capability
 is claimed.
 

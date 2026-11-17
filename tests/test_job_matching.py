@@ -108,6 +108,30 @@ def test_embedding_provider_changes_ranking_and_upserts_refresh_vectors(tmp_path
         assert row["embedding"] is not None
 
 
+def test_embedding_refresh_reuses_unchanged_vectors_and_invalidates_changes(tmp_path):
+    class CountingEmbedder(SemanticStub):
+        model = "test-model"
+        calls = 0
+        def embed(self, text):
+            self.calls += 1
+            return super().embed(text)
+    embedder = CountingEmbedder()
+    app, path = setup_app(tmp_path, embedder)
+    endpoint = route_endpoint(app, "/v1/jobs/{job_id}")
+    job = JobPosting(company="Example", title="Backend Intern", description="Python API work")
+    assert endpoint("job", job)["embedding_indexed"]
+    assert endpoint("job", job)["embedding_reused"]
+    assert embedder.calls == 1
+    job.description = "Changed frontend React work"
+    assert not endpoint("job", job)["embedding_reused"]
+    assert embedder.calls == 2
+    from probeflow.job_matching import upsert_job
+    job.description = "Changed again"
+    assert not upsert_job(path, "job", job, None)["embedding_indexed"]
+    with connect(path) as db:
+        assert db.execute("SELECT embedding FROM job_postings WHERE id='job'").fetchone()[0] is None
+
+
 def test_explicit_bm25_embedding_hybrid_and_signal_ablation_modes(tmp_path):
     app, db_path = setup_app(tmp_path, SemanticStub())
     insert_fixtures(app)

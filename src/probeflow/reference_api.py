@@ -187,12 +187,28 @@ def create_app(db_path: str | None = None, api_key: str | None = None,
         for board in boards:
             result = ingest_board(path, board)
             indexed_count = 0
+            embedding_count = 0
+            reused_count = 0
+            index_errors = 0
             if result.status == "success":
                 for job in result.jobs:
-                    upsert_job(path, job.job_id, JobPosting.model_validate(job.to_job_posting_data()), None)
-                    indexed_count += 1
+                    try:
+                        indexed = upsert_job(path, job.job_id,
+                            JobPosting.model_validate(job.to_job_posting_data()), embedder)
+                        indexed_count += 1
+                        embedding_count += int(indexed["embedding_indexed"])
+                        reused_count += int(indexed["embedding_reused"])
+                    except RuntimeError:
+                        # Keep the changed posting searchable without a vector, and
+                        # report the failure so the next refresh can retry it.
+                        upsert_job(path, job.job_id,
+                            JobPosting.model_validate(job.to_job_posting_data()), None)
+                        indexed_count += 1
+                        index_errors += 1
             results.append({"board_key": result.board_key, "status": result.status,
                             "fetched_count": result.fetched_count, "indexed_count": indexed_count,
+                            "embedding_indexed": embedding_count, "embedding_reused": reused_count,
+                            "embedding_errors": index_errors,
                             "stale_count": result.stale_count, "expired_count": result.expired_count,
                             "error": result.error})
         return {"boards_configured": len(boards), "boards": results,

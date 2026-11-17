@@ -1,0 +1,21 @@
+{
+  "verified_at_utc": "2026-11-17T14:54:29+00:00",
+  "source": "live public Lever feed: weekdayworks",
+  "indexed_postings": 51,
+  "planner_model": "qwen2.5:1.5b",
+  "embedding_model": "nomic-embed-text",
+  "ranking": "hybrid_embedding_bm25_profile_v2",
+  "embedding_coverage": {
+    "indexed": 51,
+    "total": 51,
+    "complete": true
+  },
+  "search_tool_calls": 1,
+  "top_title": "Software Engineer Intern",
+  "followup_requested_id_matches": true,
+  "tool_log_entries": 2,
+  "conversation_messages": 6,
+  "elapsed_seconds": 19.4,
+  "scope": "One local run, one public board and a synthetic candidate profile. Not a user study or market-wide measure."
+}
+
