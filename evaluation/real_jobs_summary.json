@@ -1,0 +1,100 @@
+{
+  "scope": "Author-selected positive labels on a fixed public-job snapshot. Unjudged jobs are treated as nonrelevant, so recall and nDCG are approximate and not marketplace quality.",
+  "examples": 25,
+  "cutoff": 10,
+  "recall_at_k": 0.84,
+  "mrr_at_k": 0.6308253968253968,
+  "ndcg_at_k": 0.6734894955389795,
+  "runs": [
+    {
+      "label": "BM25 only",
+      "ranking_mode": "bm25_only",
+      "ablation": null,
+      "status": "ok",
+      "recall_at_k": 0.84,
+      "mrr_at_k": 0.6308253968253968,
+      "ndcg_at_k": 0.6734894955389795
+    },
+    {
+      "label": "Embeddings only",
+      "ranking_mode": "embeddings_only",
+      "ablation": null,
+      "status": "ok",
+      "recall_at_k": 0.72,
+      "mrr_at_k": 0.7497142857142857,
+      "ndcg_at_k": 0.6559028933926963
+    },
+    {
+      "label": "Hybrid",
+      "ranking_mode": "hybrid",
+      "ablation": null,
+      "status": "ok",
+      "recall_at_k": 0.84,
+      "mrr_at_k": 0.6481587301587302,
+      "ndcg_at_k": 0.6840945998842806
+    },
+    {
+      "label": "Hybrid without embedding",
+      "ranking_mode": "hybrid",
+      "ablation": "embedding",
+      "status": "ok",
+      "recall_at_k": 0.86,
+      "mrr_at_k": 0.6487142857142857,
+      "ndcg_at_k": 0.689328544141915
+    },
+    {
+      "label": "Hybrid without BM25 rank",
+      "ranking_mode": "hybrid",
+      "ablation": "bm25",
+      "status": "ok",
+      "recall_at_k": 0.8,
+      "mrr_at_k": 0.6673809523809524,
+      "ndcg_at_k": 0.6589562637583817
+    },
+    {
+      "label": "Hybrid without token overlap",
+      "ranking_mode": "hybrid",
+      "ablation": "token_overlap",
+      "status": "ok",
+      "recall_at_k": 0.86,
+      "mrr_at_k": 0.6480952380952381,
+      "ndcg_at_k": 0.6956665045752317
+    },
+    {
+      "label": "Hybrid without skill overlap",
+      "ranking_mode": "hybrid",
+      "ablation": "skill_overlap",
+      "status": "ok",
+      "recall_at_k": 0.84,
+      "mrr_at_k": 0.6481587301587302,
+      "ndcg_at_k": 0.6840945998842806
+    },
+    {
+      "label": "Hybrid without role alignment",
+      "ranking_mode": "hybrid",
+      "ablation": "role_alignment",
+      "status": "ok",
+      "recall_at_k": 0.84,
+      "mrr_at_k": 0.6481587301587302,
+      "ndcg_at_k": 0.6840945998842806
+    },
+    {
+      "label": "Hybrid without location preference",
+      "ranking_mode": "hybrid",
+      "ablation": "location_preference",
+      "status": "ok",
+      "recall_at_k": 0.84,
+      "mrr_at_k": 0.6481587301587302,
+      "ndcg_at_k": 0.6840945998842806
+    }
+  ],
+  "table": "| Ranking variant | Status | Recall@k | MRR@k | nDCG@k |\n|---|---:|---:|---:|---:|\n| BM25 only | ok | 0.8400 | 0.6308 | 0.6735 |\n| Embeddings only | ok | 0.7200 | 0.7497 | 0.6559 |\n| Hybrid | ok | 0.8400 | 0.6482 | 0.6841 |\n| Hybrid without embedding | ok | 0.8600 | 0.6487 | 0.6893 |\n| Hybrid without BM25 rank | ok | 0.8000 | 0.6674 | 0.6590 |\n| Hybrid without token overlap | ok | 0.8600 | 0.6481 | 0.6957 |\n| Hybrid without skill overlap | ok | 0.8400 | 0.6482 | 0.6841 |\n| Hybrid without role alignment | ok | 0.8400 | 0.6482 | 0.6841 |\n| Hybrid without location preference | ok | 0.8400 | 0.6482 | 0.6841 |",
+  "snapshot_sha256": "c1c14fba1cf7f0bb322d7e9ec10b7cd528c9f17f7cb3e341e2a99d3a05d3f254",
+  "snapshot_collected_at": "2026-11-17T14:36:15+00:00",
+  "jobs": 375,
+  "labeled_pairs": 50,
+  "label_method": "25 author-written queries with two author-selected possible positive jobs per query, based on title and location. Positive-only, incomplete judgments. No user authorization or eligibility judgment.",
+  "embedding_model": "nomic-embed-text",
+  "elapsed_seconds": 104.71
+}
+

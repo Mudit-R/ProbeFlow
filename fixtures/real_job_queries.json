@@ -1,0 +1,557 @@
+{
+  "snapshot_sha256": "c1c14fba1cf7f0bb322d7e9ec10b7cd528c9f17f7cb3e341e2a99d3a05d3f254",
+  "method": "25 author-written queries with two author-selected possible positive jobs per query, based on title and location. Positive-only, incomplete judgments. No user authorization or eligibility judgment.",
+  "cases": [
+    {
+      "id": "real-01",
+      "query": "software engineering intern New York",
+      "relevance": {
+        "lever_50b4076d698c270fed0a0658a92df1cf96df96ce974b089ffb499b3bd11b3cc0": 1,
+        "lever_c332c513ba0e3542d82958fd152166335f134974625b5fe9eb7d415e3d99c5c4": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_50b4076d698c270fed0a0658a92df1cf96df96ce974b089ffb499b3bd11b3cc0",
+          "title": "Software Engineer, Internship",
+          "company": "Palantir",
+          "location": "New York, NY"
+        },
+        {
+          "id": "lever_c332c513ba0e3542d82958fd152166335f134974625b5fe9eb7d415e3d99c5c4",
+          "title": "Software Engineer, Intern - Connectivity Platform and Product",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-02",
+      "query": "software engineer intern London",
+      "relevance": {
+        "lever_bc92d3589432f539fc4e944f78af2c2294445ab57501e2a8adc085ba01adb2d6": 1,
+        "lever_4294b0d9745b80d1d252759f71d44d2470a285574bf123947551d8e595949c16": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_bc92d3589432f539fc4e944f78af2c2294445ab57501e2a8adc085ba01adb2d6",
+          "title": "Software Engineer, Internship",
+          "company": "Palantir",
+          "location": "London, United Kingdom"
+        },
+        {
+          "id": "lever_4294b0d9745b80d1d252759f71d44d2470a285574bf123947551d8e595949c16",
+          "title": "Software Engineer, Internship - Infrastructure",
+          "company": "Palantir",
+          "location": "London, United Kingdom"
+        }
+      ]
+    },
+    {
+      "id": "real-03",
+      "query": "internship software engineer Denver",
+      "relevance": {
+        "lever_82c1181fd2196bd8260d1330be6019711406ff893ba26eed43a0a431c4308046": 1,
+        "lever_88f49bf7ba17dd8c1d4e4b36aa145f4b5e18acc61e754b651ac131b1d65f225b": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_82c1181fd2196bd8260d1330be6019711406ff893ba26eed43a0a431c4308046",
+          "title": "Software Engineer, Internship",
+          "company": "Palantir",
+          "location": "Denver, CO"
+        },
+        {
+          "id": "lever_88f49bf7ba17dd8c1d4e4b36aa145f4b5e18acc61e754b651ac131b1d65f225b",
+          "title": "Software Engineer, Intern - Connectivity Platform and Product",
+          "company": "Palantir",
+          "location": "Denver, CO"
+        }
+      ]
+    },
+    {
+      "id": "real-04",
+      "query": "software engineer internship Palo Alto",
+      "relevance": {
+        "lever_8a1a8c8d7e74750adaaca523dde70ff5a29acd2cb19ae8e6e30439ec400a635e": 1,
+        "lever_53458e948461c1eb8fd5a70279298a11f115f751db1b3c44c41a9ae9771f1a2c": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_8a1a8c8d7e74750adaaca523dde70ff5a29acd2cb19ae8e6e30439ec400a635e",
+          "title": "Software Engineer, Internship",
+          "company": "Palantir",
+          "location": "Palo Alto, CA"
+        },
+        {
+          "id": "lever_53458e948461c1eb8fd5a70279298a11f115f751db1b3c44c41a9ae9771f1a2c",
+          "title": "Software Engineer, Internship - Infrastructure",
+          "company": "Palantir",
+          "location": "Palo Alto, CA"
+        }
+      ]
+    },
+    {
+      "id": "real-05",
+      "query": "software engineering internship Singapore",
+      "relevance": {
+        "lever_c7cdee64e688b632b734a2aff582e450a1a093ff330dff351e19a37f9789945e": 1,
+        "lever_edf436c7f79ccd0054d252d75138ba287664d2fd3858d7f5717282fe2dd8c248": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_c7cdee64e688b632b734a2aff582e450a1a093ff330dff351e19a37f9789945e",
+          "title": "Software Engineer, Internship",
+          "company": "Palantir",
+          "location": "Singapore, Singapore"
+        },
+        {
+          "id": "lever_edf436c7f79ccd0054d252d75138ba287664d2fd3858d7f5717282fe2dd8c248",
+          "title": "Software Engineer Intern (H1 2027)",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        }
+      ]
+    },
+    {
+      "id": "real-06",
+      "query": "software engineering internship Vietnam",
+      "relevance": {
+        "lever_8e9023e999f95cbdafa1cf6e72c93faeee93350897f2a5140318067348152f64": 1,
+        "lever_6c81e740fe1c94e4e7eb801657dbec2ee431991c118b48777d60222593006ff8": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_8e9023e999f95cbdafa1cf6e72c93faeee93350897f2a5140318067348152f64",
+          "title": "Software Engineer Intern - Backend",
+          "company": "ShopBack",
+          "location": "Ho Chi Minh, Vietnam"
+        },
+        {
+          "id": "lever_6c81e740fe1c94e4e7eb801657dbec2ee431991c118b48777d60222593006ff8",
+          "title": "Software Engineer Intern - Mobile",
+          "company": "ShopBack",
+          "location": "Ho Chi Minh, Vietnam"
+        }
+      ]
+    },
+    {
+      "id": "real-07",
+      "query": "infrastructure engineering internship New York",
+      "relevance": {
+        "lever_4146d1db30a0ddbf507fd17cded783a345186cdc67e3319106582d729c6ec267": 1,
+        "lever_2a69eb791d172ba944876018b8c9693e66a8465fb7245b35cbd9c4043ec7ad4d": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_4146d1db30a0ddbf507fd17cded783a345186cdc67e3319106582d729c6ec267",
+          "title": "Software Engineer, Internship - Infrastructure",
+          "company": "Palantir",
+          "location": "New York, NY"
+        },
+        {
+          "id": "lever_2a69eb791d172ba944876018b8c9693e66a8465fb7245b35cbd9c4043ec7ad4d",
+          "title": "Software Engineer, Internship - Production Infrastructure",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-08",
+      "query": "production infrastructure software internship",
+      "relevance": {
+        "lever_1b423d529213364625cb12f1aa82e4f5cba857f64531918eca0c3a8bd99312ed": 1,
+        "lever_2a69eb791d172ba944876018b8c9693e66a8465fb7245b35cbd9c4043ec7ad4d": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_1b423d529213364625cb12f1aa82e4f5cba857f64531918eca0c3a8bd99312ed",
+          "title": "Software Engineer, Internship - Production Infrastructure",
+          "company": "Palantir",
+          "location": "Seattle, WA"
+        },
+        {
+          "id": "lever_2a69eb791d172ba944876018b8c9693e66a8465fb7245b35cbd9c4043ec7ad4d",
+          "title": "Software Engineer, Internship - Production Infrastructure",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-09",
+      "query": "query engines software internship",
+      "relevance": {
+        "lever_a2d8a9a6939c136055d135039801c89168aed020e5dc1651b7bbbcba564565d1": 1,
+        "lever_3399f60b562cea7530fd86db69578b0dd5e506b5daf49f1639f3deb64113887e": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_a2d8a9a6939c136055d135039801c89168aed020e5dc1651b7bbbcba564565d1",
+          "title": "Software Engineer, Internship - Query Engines",
+          "company": "Palantir",
+          "location": "London, United Kingdom"
+        },
+        {
+          "id": "lever_3399f60b562cea7530fd86db69578b0dd5e506b5daf49f1639f3deb64113887e",
+          "title": "Software Engineer, Internship - Query Engines",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-10",
+      "query": "software engineer new graduate London",
+      "relevance": {
+        "lever_07aee21d013c8d8226774b52faa45f3db476a848f62a81467c07ff78bd341b2a": 1,
+        "lever_a1ffd53535ba59066c10a29d86c4020e1915c73c5c881b64dbd07e7fae8f51d4": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_07aee21d013c8d8226774b52faa45f3db476a848f62a81467c07ff78bd341b2a",
+          "title": "Software Engineer, New Grad - Query Engines",
+          "company": "Palantir",
+          "location": "London, United Kingdom"
+        },
+        {
+          "id": "lever_a1ffd53535ba59066c10a29d86c4020e1915c73c5c881b64dbd07e7fae8f51d4",
+          "title": "Software Engineer, New Grad - Infrastructure",
+          "company": "Palantir",
+          "location": "London, United Kingdom"
+        }
+      ]
+    },
+    {
+      "id": "real-11",
+      "query": "new graduate production infrastructure engineer",
+      "relevance": {
+        "lever_09882db55405e669fe55f6abff07d2862e1530dcb7800232887b9d04949fcff7": 1,
+        "lever_9589fd6c88bf2fe607e2aab37781bef494b891215a014c7ba4bbff1bdd50bed2": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_09882db55405e669fe55f6abff07d2862e1530dcb7800232887b9d04949fcff7",
+          "title": "Software Engineer, New Grad - Production Infrastructure",
+          "company": "Palantir",
+          "location": "Seattle, WA"
+        },
+        {
+          "id": "lever_9589fd6c88bf2fe607e2aab37781bef494b891215a014c7ba4bbff1bdd50bed2",
+          "title": "Software Engineer, New Grad - Production Infrastructure",
+          "company": "Palantir",
+          "location": "Washington, D.C."
+        }
+      ]
+    },
+    {
+      "id": "real-12",
+      "query": "new graduate software engineer",
+      "relevance": {
+        "lever_b9b4fc7d39b6d25841562a7ef247f3aeb047a99e573dd67a5194ae8caadc675b": 1,
+        "lever_62d27fbe0e2f6504371e45066fd0476a806a6149344fbcf043c7f2bac9f37752": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_b9b4fc7d39b6d25841562a7ef247f3aeb047a99e573dd67a5194ae8caadc675b",
+          "title": "Software Engineer, New Grad",
+          "company": "Palantir",
+          "location": "Singapore, Singapore"
+        },
+        {
+          "id": "lever_62d27fbe0e2f6504371e45066fd0476a806a6149344fbcf043c7f2bac9f37752",
+          "title": "Software Engineer, New Grad",
+          "company": "Palantir",
+          "location": "Denver, CO"
+        }
+      ]
+    },
+    {
+      "id": "real-13",
+      "query": "forward deployed software engineer internship",
+      "relevance": {
+        "lever_b234bced0e486ecccde085d621b64a8df478184688125c849bba59265f8d45c2": 1,
+        "lever_13039883bdf2cb0ebc079f80c64af8bbe0e5fd17a824e22c1237913772159c14": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_b234bced0e486ecccde085d621b64a8df478184688125c849bba59265f8d45c2",
+          "title": "Forward Deployed Software Engineer, Internship",
+          "company": "Palantir",
+          "location": "Paris, France"
+        },
+        {
+          "id": "lever_13039883bdf2cb0ebc079f80c64af8bbe0e5fd17a824e22c1237913772159c14",
+          "title": "Forward Deployed Software Engineer, Internship - AUS Government",
+          "company": "Palantir",
+          "location": "Sydney, Australia"
+        }
+      ]
+    },
+    {
+      "id": "real-14",
+      "query": "forward deployed software internship Chicago",
+      "relevance": {
+        "lever_6e9ae2a723b35a375b0e399fb26312da5382362bfbc010d08df8de02cf686073": 1,
+        "lever_c98e77d6f1b7e7ede60fcabf52545dce91e4876f8dde1010de79c54e0074ba7e": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_6e9ae2a723b35a375b0e399fb26312da5382362bfbc010d08df8de02cf686073",
+          "title": "Forward Deployed Software Engineer, Internship - Commercial",
+          "company": "Palantir",
+          "location": "Chicago, IL"
+        },
+        {
+          "id": "lever_c98e77d6f1b7e7ede60fcabf52545dce91e4876f8dde1010de79c54e0074ba7e",
+          "title": "Year at Palantir - Forward Deployed Software Engineer, Internship - Commercial",
+          "company": "Palantir",
+          "location": "Chicago, IL"
+        }
+      ]
+    },
+    {
+      "id": "real-15",
+      "query": "forward deployed software internship commercial",
+      "relevance": {
+        "lever_6fb001eaa4abd8ec527a7d9d7fd00581c2d88a3af3b3e12d431be537ce7ccaeb": 1,
+        "lever_18f985bfc4e9728fc44b6e2aaa2e6d2f582328a3fd61138ccb10feaae610ce41": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_6fb001eaa4abd8ec527a7d9d7fd00581c2d88a3af3b3e12d431be537ce7ccaeb",
+          "title": "Forward Deployed Software Engineer, Internship - Commercial",
+          "company": "Palantir",
+          "location": "Seoul, South Korea"
+        },
+        {
+          "id": "lever_18f985bfc4e9728fc44b6e2aaa2e6d2f582328a3fd61138ccb10feaae610ce41",
+          "title": "Forward Deployed Software Engineer, Internship - Commercial",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-16",
+      "query": "forward deployed software internship government",
+      "relevance": {
+        "lever_4488210bcb37d80e0fc910b4d17251d0f76e2820d4a54cd615869a137f744b8d": 1,
+        "lever_589de485975358fced1ce5bc1ce80695510a60da3ae94880ee6b3fb3a6704acd": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_4488210bcb37d80e0fc910b4d17251d0f76e2820d4a54cd615869a137f744b8d",
+          "title": "Forward Deployed Software Engineer, Internship - US Government",
+          "company": "Palantir",
+          "location": "Washington, D.C."
+        },
+        {
+          "id": "lever_589de485975358fced1ce5bc1ce80695510a60da3ae94880ee6b3fb3a6704acd",
+          "title": "Forward Deployed Software Engineer, Internship - US Government",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-17",
+      "query": "software engineer internship defense",
+      "relevance": {
+        "lever_3589191a261813d19eca973c933b9763748032b81c56a0eb78292d28f1b95413": 1,
+        "lever_ccbd3357865032c973de5a7f057763eabbfb1f021131d1b96cc515909cb886a4": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_3589191a261813d19eca973c933b9763748032b81c56a0eb78292d28f1b95413",
+          "title": "Software Engineer, Internship - Defense Tech",
+          "company": "Palantir",
+          "location": "Palo Alto, CA"
+        },
+        {
+          "id": "lever_ccbd3357865032c973de5a7f057763eabbfb1f021131d1b96cc515909cb886a4",
+          "title": "Software Engineer, Internship - Defense Tech",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-18",
+      "query": "product design internship",
+      "relevance": {
+        "lever_94b5eedc7b502b8e0c4b9eb3780fc64a865e7a56f1bbe1d018900b535741c5d5": 1,
+        "lever_b601e54c260b1da6dc30f5377b7026cedd3468efbea511e5fd2d0a67829ab4f2": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_94b5eedc7b502b8e0c4b9eb3780fc64a865e7a56f1bbe1d018900b535741c5d5",
+          "title": "Product Designer, Internship",
+          "company": "Palantir",
+          "location": "London, United Kingdom"
+        },
+        {
+          "id": "lever_b601e54c260b1da6dc30f5377b7026cedd3468efbea511e5fd2d0a67829ab4f2",
+          "title": "Product Designer, Internship",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-19",
+      "query": "product designer internship New York",
+      "relevance": {
+        "lever_b601e54c260b1da6dc30f5377b7026cedd3468efbea511e5fd2d0a67829ab4f2": 1,
+        "lever_2aa40e1f288c5aeb4cd3181fd51a1f6bc2d3020c2e89bbf921f746e0480d8cc9": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_b601e54c260b1da6dc30f5377b7026cedd3468efbea511e5fd2d0a67829ab4f2",
+          "title": "Product Designer, Internship",
+          "company": "Palantir",
+          "location": "New York, NY"
+        },
+        {
+          "id": "lever_2aa40e1f288c5aeb4cd3181fd51a1f6bc2d3020c2e89bbf921f746e0480d8cc9",
+          "title": "Product Designer, Internship - US Government",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-20",
+      "query": "security or privacy engineering internship or new grad",
+      "relevance": {
+        "lever_10ecc578461258c319c63f369c0070855f9942659f9fd5f2a413f09e4d84ce61": 1,
+        "lever_b1dfc8e1534a12044b4eb8d3cde9439e662a30033754616267e6b041724f5a2e": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_10ecc578461258c319c63f369c0070855f9942659f9fd5f2a413f09e4d84ce61",
+          "title": "Information Security Engineer, Internship",
+          "company": "Palantir",
+          "location": "New York, NY"
+        },
+        {
+          "id": "lever_b1dfc8e1534a12044b4eb8d3cde9439e662a30033754616267e6b041724f5a2e",
+          "title": "Privacy & Civil Liberties Engineer - New Grad",
+          "company": "Palantir",
+          "location": "New York, NY"
+        }
+      ]
+    },
+    {
+      "id": "real-21",
+      "query": "software engineer intern Asia",
+      "relevance": {
+        "lever_011a4474e92e1094fdd1b7593abfb1f6db8f84f31db44885faea642f7843c4d9": 1,
+        "lever_edf436c7f79ccd0054d252d75138ba287664d2fd3858d7f5717282fe2dd8c248": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_011a4474e92e1094fdd1b7593abfb1f6db8f84f31db44885faea642f7843c4d9",
+          "title": "Software Engineer Intern",
+          "company": "Weekday",
+          "location": "Bengaluru"
+        },
+        {
+          "id": "lever_edf436c7f79ccd0054d252d75138ba287664d2fd3858d7f5717282fe2dd8c248",
+          "title": "Software Engineer Intern (H1 2027)",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        }
+      ]
+    },
+    {
+      "id": "real-22",
+      "query": "software engineer internship United States",
+      "relevance": {
+        "lever_8ad0852e7cc6f562ac327fcb38d159bae4459e7c0560df0147b0d47c346d7420": 1,
+        "lever_15692f67962411f07f7cf0ca1e97ecea4cef303eb93cd008d3c808236749fd05": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_8ad0852e7cc6f562ac327fcb38d159bae4459e7c0560df0147b0d47c346d7420",
+          "title": "Software Engineer Intern",
+          "company": "ShopBack",
+          "location": "San Francisco, California"
+        },
+        {
+          "id": "lever_15692f67962411f07f7cf0ca1e97ecea4cef303eb93cd008d3c808236749fd05",
+          "title": "Software Engineer Intern",
+          "company": "ShopBack",
+          "location": "New York City, New York"
+        }
+      ]
+    },
+    {
+      "id": "real-23",
+      "query": "site reliability or infrastructure intern Singapore",
+      "relevance": {
+        "lever_0394b2033cc3adc0b6b7274d72be17f4fdf5b2a696ff0bd44a48daf4d1099102": 1,
+        "lever_edf436c7f79ccd0054d252d75138ba287664d2fd3858d7f5717282fe2dd8c248": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_0394b2033cc3adc0b6b7274d72be17f4fdf5b2a696ff0bd44a48daf4d1099102",
+          "title": "Site Reliability Engineer Intern",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        },
+        {
+          "id": "lever_edf436c7f79ccd0054d252d75138ba287664d2fd3858d7f5717282fe2dd8c248",
+          "title": "Software Engineer Intern (H1 2027)",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        }
+      ]
+    },
+    {
+      "id": "real-24",
+      "query": "software quality or IT support intern",
+      "relevance": {
+        "lever_cd0a7f49126f3abade5a85ba4f6d49b17eca7fdfce218854f8e97a0118aee9e8": 1,
+        "lever_0a0fc92eb9711a44a8d795699fdb6657ed0a6f2498b28ed8a9728516c4ad0fc2": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_cd0a7f49126f3abade5a85ba4f6d49b17eca7fdfce218854f8e97a0118aee9e8",
+          "title": "Software Engineer Intern - QA",
+          "company": "ShopBack",
+          "location": "Taipei, Taiwan"
+        },
+        {
+          "id": "lever_0a0fc92eb9711a44a8d795699fdb6657ed0a6f2498b28ed8a9728516c4ad0fc2",
+          "title": "IT Support Intern",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        }
+      ]
+    },
+    {
+      "id": "real-25",
+      "query": "data analyst internship Singapore",
+      "relevance": {
+        "lever_dc947fa4f285d1d3546dcd9f4eba09ae104952ee09f4598ce970d7aa114d77e4": 1,
+        "lever_536c5c830445fe6387b12911aac7401cfafc3100efc214ff423527a7aaaa8d46": 1
+      },
+      "judged_jobs": [
+        {
+          "id": "lever_dc947fa4f285d1d3546dcd9f4eba09ae104952ee09f4598ce970d7aa114d77e4",
+          "title": "Data Analyst (Internship) (H1 2027)",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        },
+        {
+          "id": "lever_536c5c830445fe6387b12911aac7401cfafc3100efc214ff423527a7aaaa8d46",
+          "title": "Business & Strategy Analyst Intern (Regional Payments)",
+          "company": "ShopBack",
+          "location": "Singapore, Singapore"
+        }
+      ]
+    }
+  ]
+}
+

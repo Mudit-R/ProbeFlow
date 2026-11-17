@@ -8,6 +8,31 @@
 
 ## Career-search extension quickstart
 
+### Real-posting retrieval evaluation
+
+On 17 November 2026 a local snapshot captured 375 published Lever postings:
+250 from Palantir, 51 from Weekday and 74 from ShopBack. A Zoox feed failed
+normalization and is excluded. The author selected two plausible postings by
+title and location for each of 25 manually written queries, giving 50 positive
+judgments. This is an incomplete, positive-only label set: unjudged postings
+are treated as nonrelevant, and no work-authorization assessment was made.
+
+Against this fixed snapshot, using `nomic-embed-text`, BM25 achieved Recall@10
+0.840 and MRR@10 0.631. Hybrid achieved Recall@10 0.840 and MRR@10 0.648.
+These are approximate scores against author-selected positives, not a measure
+of hiring-market relevance, eligibility, or real-user satisfaction. No
+candidate profiles were used in this run, so profile-signal ablations are not
+informative. See `fixtures/real_job_queries.json` and
+`evaluation/real_jobs_summary.json` for judgment details and the snapshot hash.
+
+To repeat the exact evaluation, retain the local
+`artifacts/real_jobs_snapshot.json` captured for this run, install Ollama with
+`nomic-embed-text`, and run `python scripts/evaluate_real_jobs.py`. The evaluator
+refuses a snapshot whose SHA-256 differs from the labeled one. A new snapshot
+from `python scripts/fetch_real_jobs_snapshot.py` requires fresh relevance
+judgments because job boards change. Posting excerpts are not bundled in the
+repository. Feed availability and provider behavior can change.
+
 Set `PROBEFLOW_API_KEY` and launch the reference API as below. To ingest a curated
 set of public Lever boards, set `PROBEFLOW_LEVER_BOARDS` to a JSON array such as
 `[{"site":"example","company":"Example","region":"global"}]` and send an
